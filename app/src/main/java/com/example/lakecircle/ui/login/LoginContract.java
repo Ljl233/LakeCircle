@@ -3,9 +3,9 @@ package com.example.lakecircle.ui.login;
 public interface LoginContract {
     interface View {
 
-        void getAccount();
+        String getAccountFromView();
 
-        void getPassword();
+        String getPasswordFromView();
 
         void showLoad();//超时失败
 
@@ -15,6 +15,8 @@ public interface LoginContract {
     }
 
     interface Presenter {
+        void login();
 
+        void onDestroy();
     }
 }

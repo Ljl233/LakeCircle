@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_menu_home"
+        android:icon="@drawable/home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/nav_menu_journey"
+        android:icon="@drawable/journey"
+        android:title="@string/journey" />
+
+    <item
+        android:id="@+id/nav_menu_circle"
+        android:icon="@drawable/circle"
+        android:title="@string/lakecircle" />
+
+    <item
+        android:id="@+id/nav_menu_mine"
+        android:icon="@drawable/user"
+        android:title="@string/mine" />
+</menu>

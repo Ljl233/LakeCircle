@@ -3,4 +3,8 @@
     <string name="login">登  录</string>
     <string name="logup">注册</string>
     <string name="forget_password">忘记密码</string>
+    <string name="home">首页</string>
+    <string name="journey">行程</string>
+    <string name="lakecircle">河湖圈</string>
+    <string name="mine">我的</string>
 </resources>

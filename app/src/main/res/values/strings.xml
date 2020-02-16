@@ -7,4 +7,14 @@
     <string name="journey">行程</string>
     <string name="lakecircle">河湖圈</string>
     <string name="mine">我的</string>
+    <string name="wuhan">武汉</string>
+    <string name="problem_upload">问题上传</string>
+    <string name="activity_detail">活动详情</string>
+    <string name="merchant">附近商家</string>
+    <string name="time_lake">实时河湖</string>
+    <string name="travel">河湖旅游</string>
+    <string name="lake_walk">河湖行</string>
+    <string name="light_lake">点亮河湖</string>
+    <string name="psw">密码</string>
+    <string name="account">账号</string>
 </resources>

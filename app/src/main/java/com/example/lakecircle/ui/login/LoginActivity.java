@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.ui.forgetpwd.PasswordActivity;
 import com.example.lakecircle.ui.logup.LogupActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
@@ -17,6 +18,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     private Button mBtLogin;
     private TextView mTvForgetPwd, mTvLogup;
     private EditText mEtAccount, mEtPwd;
+    private LoginContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     void initView() {
         mBtLogin = findViewById(R.id.login_bt);
         mBtLogin.setOnClickListener(v -> {
-
+            mPresenter.login();
         });
 
         mTvForgetPwd = findViewById(R.id.login_tv_forget_pwd);
@@ -41,7 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         });
 
         mTvForgetPwd.setOnClickListener(v -> {
-
+            startActivity(new Intent(this, PasswordActivity.class));
         });
 
         mEtAccount = findViewById(R.id.login_et_account);
@@ -79,5 +81,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @Override
     public void successLogin() {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

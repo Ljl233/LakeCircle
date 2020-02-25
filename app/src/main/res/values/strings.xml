@@ -17,4 +17,14 @@
     <string name="light_lake">点亮河湖</string>
     <string name="psw">密码</string>
     <string name="account">账号</string>
+    <string name="confirm_pwd">确认密码</string>
+    <string name="pwdquestion">密报问题</string>
+
+    <string-array name="pwd_question">
+        <item>请选择密保问题：</item>
+        <item>父亲的名字</item>
+        <item>母亲的名字</item>
+        <item>我的名字</item>
+
+    </string-array>
 </resources>

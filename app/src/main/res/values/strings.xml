@@ -19,6 +19,10 @@
     <string name="account">账号</string>
     <string name="confirm_pwd">确认密码</string>
     <string name="pwdquestion">密报问题</string>
+    <string name="up_load_picture">上传照片</string>
+    <string name="question_content">问题内容</string>
+    <string name="pick_from_album">从相册选择</string>
+    <string name="dismiss">取消</string>
 
     <string-array name="pwd_question">
         <item>请选择密保问题：</item>

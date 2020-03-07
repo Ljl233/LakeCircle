@@ -15,7 +15,7 @@ import com.example.lakecircle.R;
 import com.example.lakecircle.ui.circle.CircleFragment;
 import com.example.lakecircle.ui.home.HomeFragment;
 import com.example.lakecircle.ui.journey.JourneyFragment;
-import com.example.lakecircle.ui.mine.MineFragment;
+import com.example.lakecircle.ui.mine.view.MineFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

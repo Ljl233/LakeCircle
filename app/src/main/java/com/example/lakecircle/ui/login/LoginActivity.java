@@ -10,8 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.ui.forgetpwd.PasswordActivity;
-import com.example.lakecircle.ui.logup.LogupActivity;
+import com.example.lakecircle.ui.login.forgetpwd.PasswordActivity;
+import com.example.lakecircle.ui.login.logup.LogupActivity;
+import com.example.lakecircle.ui.mainControl.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -32,7 +33,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     void initView() {
         mBtLogin = findViewById(R.id.login_bt);
         mBtLogin.setOnClickListener(v -> {
-            mPresenter.login();
+//            mPresenter.login();
+            startActivity(new Intent(this, MainActivity.class));
         });
 
         mTvForgetPwd = findViewById(R.id.login_tv_forget_pwd);

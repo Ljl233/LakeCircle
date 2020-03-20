@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.forgetpwd;
+package com.example.lakecircle.ui.login.forgetpwd;
 
 import androidx.appcompat.app.AppCompatActivity;
 

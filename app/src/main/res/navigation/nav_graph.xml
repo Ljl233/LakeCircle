@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_dest">
+
+    <fragment
+        android:id="@+id/home_dest"
+        android:name="com.example.lakecircle.ui.home.HomeFragment"
+        android:label="home"
+        tools:layout="@layout/fragment_home">
+
+    </fragment>
+    <fragment
+        android:id="@+id/circle_dest"
+        android:name="com.example.lakecircle.ui.circle.CircleFragment"
+        android:label="circle">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/journey_dest"
+        android:name="com.example.lakecircle.ui.home.journey.JourneyFragment"
+        android:label="@string/journey">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/mine_dest"
+        android:name="com.example.lakecircle.ui.mine.view.MineFragment"
+        android:label="@string/mine"
+        tools:layout="@layout/fragment_mine"/>
+</navigation>

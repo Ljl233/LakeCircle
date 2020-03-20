@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.upimage;
+package com.example.lakecircle.ui.home.upimage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

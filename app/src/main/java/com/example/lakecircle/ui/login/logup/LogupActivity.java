@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.logup;
+package com.example.lakecircle.ui.login.logup;
 
 import androidx.appcompat.app.AppCompatActivity;
 

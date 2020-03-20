@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greyBackground"
-    tools:context=".ui.upimage.ULQActivity">
+    tools:context=".ui.home.upimage.ULQActivity">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/ulq_image"

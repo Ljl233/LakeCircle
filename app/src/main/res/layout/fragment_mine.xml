@@ -50,8 +50,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginVertical="2dp"
-            android:src=""/>
+            android:layout_marginVertical="2dp"/>
         
         <TextView
             android:id="@+id/tv_mine_government"
@@ -77,7 +76,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="24dp"
             android:layout_marginVertical="2dp"
-            android:src=""/>
+            />
 
         <TextView
             android:id="@+id/tv_mine_business"
@@ -103,7 +102,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="24dp"
             android:layout_marginVertical="2dp"
-            android:src=""/>
+            />
 
         <TextView
             android:id="@+id/tv_mine_coupon"
@@ -155,7 +154,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="24dp"
             android:layout_marginVertical="2dp"
-            android:src=""/>
+            />
 
         <TextView
             android:id="@+id/tv_mine_logout"

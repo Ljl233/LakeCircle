@@ -15,6 +15,7 @@ import com.example.lakecircle.ui.circle.CircleFragment;
 import com.example.lakecircle.ui.home.HomeFragment;
 import com.example.lakecircle.ui.home.journey.JourneyFragment;
 import com.example.lakecircle.ui.mine.view.MineFragment;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
 
         //status bar

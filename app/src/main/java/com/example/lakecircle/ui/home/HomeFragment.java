@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
@@ -58,7 +59,13 @@ public class HomeFragment extends Fragment {
         });
 
         mTvLightLake.setOnClickListener(v -> {
-            mNavController.navigate(R.id.light_dest);
+            NavOptions options = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_left)
+                    .setExitAnim(R.anim.slide_out_left)
+                    .setPopEnterAnim(R.anim.slide_in_left)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+            mNavController.navigate(R.id.light_dest, null, options);
         });
 
         mTvTimeLake.setOnClickListener(v -> {

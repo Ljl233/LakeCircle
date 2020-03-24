@@ -15,17 +15,139 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_nav_white_24dp"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:navigationIcon="@drawable/ic_nav_white_24dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/light_circle"
             android:layout_gravity="center"
+            android:text="@string/light_circle"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
+
+
+    <!--   <com.example.lakecircle.ui.mine.view.AvatarView
+          android:id="@+id/light_avatar"
+          android:layout_width="@dimen/dimens_portrait"
+          android:layout_height="@dimen/dimens_portrait"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.498"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/light_toolbar"
+          app:layout_constraintVertical_bias="0.0" />-->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+
+        android:id="@+id/light_avatar"
+        android:layout_width="@dimen/dimens_portrait"
+        android:layout_height="@dimen/dimens_portrait"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/light_toolbar"
+        app:layout_constraintVertical_bias="0.0"
+        app:placeholderImage="@mipmap/ic_launcher"
+        app:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/light_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ranking"
+        android:textColor="#FFEB3B"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/light_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.741"
+        app:layout_constraintStart_toEndOf="@+id/light_avatar" />
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/dimens_ic_light"
+        android:layout_height="@dimen/dimens_ic_light"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/grades"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/light_avatar" />
+
+    <TextView
+        android:id="@+id/light_grades"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimens_ic_light"
+        android:gravity="center"
+        android:text="15000"
+        android:textColor="#FFEB3B"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/imageView3" />
+
+    <ImageView
+
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/dimens_ic_light"
+        android:layout_height="@dimen/dimens_ic_light"
+        android:src="@drawable/assess"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/light_grades" />
+
+    <TextView
+        android:id="@+id/light_starts"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimens_ic_light"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:gravity="center"
+        android:text="8"
+        android:textColor="#FFEB3B"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/imageView2" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_light_lake"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/light_grades"
+        app:layout_constraintVertical_bias="0.253"
+        app:placeholderImage="@drawable/shahu2"
+        app:roundWithOverlayColor="@android:color/white"
+        app:roundedCornerRadius="20dp" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/light_searchview"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:autofillHints="@string/shahu"
+        android:background="@drawable/corners_bg"
+        app:defaultQueryHint="@string/shahu"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_light_lake"
+        app:layout_constraintEnd_toEndOf="@+id/iv_light_lake"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="@+id/iv_light_lake"
+        app:layout_constraintTop_toTopOf="@+id/iv_light_lake"
+        app:layout_constraintVertical_bias="0.048"
+        app:queryHint="@string/shahu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

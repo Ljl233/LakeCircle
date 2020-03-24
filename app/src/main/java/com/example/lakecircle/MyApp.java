@@ -9,9 +9,9 @@ public class MyApp extends Application {
     private static Context applicationContext;
     @Override
     public void onCreate() {
+
         super.onCreate();
         applicationContext=this.getApplicationContext();
-        Fresco.initialize(this);
     }
 
 

@@ -24,6 +24,8 @@
     <string name="pick_from_album">从相册选择</string>
     <string name="dismiss">取消</string>
     <string name="light_circle">点亮河湖</string>
+    <string name="ranking">排行榜</string>
+    <string name="shahu">沙湖</string>
 
     <string-array name="pwd_question">
         <item>请选择密保问题：</item>

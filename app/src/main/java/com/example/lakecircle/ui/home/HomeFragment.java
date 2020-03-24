@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
 
@@ -19,6 +21,7 @@ public class HomeFragment extends Fragment {
     private SearchView mSearchView;
     private TextView mTvAddress, mTvTimeLake, mTvTravel, mTvLakeWalk, mTvLightLake;
     private ImageView mIvProblem, mIvActivity, mIvMerchant, mIvNotice;
+    private NavController mNavController;
 
     @Nullable
     @Override
@@ -37,6 +40,8 @@ public class HomeFragment extends Fragment {
         mIvProblem = view.findViewById(R.id.home_iv_problem);
         mIvNotice = view.findViewById(R.id.home_iv_notice);
 
+        mNavController = NavHostFragment.findNavController(this);
+
         initView();
 
         return view;
@@ -53,7 +58,7 @@ public class HomeFragment extends Fragment {
         });
 
         mTvLightLake.setOnClickListener(v -> {
-
+            mNavController.navigate(R.id.light_dest);
         });
 
         mTvTimeLake.setOnClickListener(v -> {

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_home_dest_to_lightFragment"
             app:destination="@id/light_dest" />
+        <action
+            android:id="@+id/action_home_dest_to_ULQActivity"
+            app:destination="@id/ulq_dest" />
     </fragment>
     <fragment
         android:id="@+id/circle_dest"
@@ -47,4 +50,9 @@
         android:name="com.example.lakecircle.ui.home.light.RankFragment"
         android:label="RankFragment"
         tools:layout="@layout/fragment_rank" />
+    <activity
+        android:id="@+id/ulq_dest"
+        android:name="com.example.lakecircle.ui.home.upimage.ULQActivity"
+        android:label="activity_up_load_question"
+        tools:layout="@layout/activity_up_load_question" />
 </navigation>

@@ -12,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
 import com.example.lakecircle.ui.circle.CircleFragment;
-import com.example.lakecircle.ui.home.HomeFragment;
+import com.example.lakecircle.ui.home.home.HomeFragment;
 import com.example.lakecircle.ui.home.journey.JourneyFragment;
 import com.example.lakecircle.ui.mine.view.MineFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;

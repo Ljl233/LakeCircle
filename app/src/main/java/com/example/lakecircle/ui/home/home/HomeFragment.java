@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.home;
+package com.example.lakecircle.ui.home.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

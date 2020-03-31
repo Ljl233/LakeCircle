@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.login;
+package com.example.lakecircle.ui.login.login;
 
 public interface LoginContract {
     interface View {
@@ -7,9 +7,10 @@ public interface LoginContract {
 
         String getPasswordFromView();
 
-        void showLoad();//超时失败
+        void showLoad();
 
         void failLogin(String msg);
+
 
         void successLogin();
     }

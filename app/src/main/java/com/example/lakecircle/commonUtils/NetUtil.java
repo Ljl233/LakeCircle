@@ -25,7 +25,7 @@ public class NetUtil {
         static NetUtil INSTANCE = new NetUtil();
     }
 
-    private RetrofitApi getApi() {
+    public RetrofitApi getApi() {
         return api;
     }
 }

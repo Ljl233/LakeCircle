@@ -105,7 +105,7 @@
         app:layout_constraintStart_toEndOf="@+id/light_grades" />
 
     <TextView
-        android:id="@+id/light_starts"
+        android:id="@+id/rank_starts"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dimens_ic_light"
         android:layout_marginStart="8dp"

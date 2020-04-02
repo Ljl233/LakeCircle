@@ -3,6 +3,6 @@
     <dimen name="dimen_home_item">15sp</dimen>
     <dimen name="dimen_alpha">0.90</dimen>
     <dimen name="dimens_home_middle_text">20sp</dimen>
-    <dimen name="dimens_portrait">100dp</dimen>
+    <dimen name="dimens_portrait">80dp</dimen>
     <dimen name="dimens_ic_light">50dp</dimen>
 </resources>

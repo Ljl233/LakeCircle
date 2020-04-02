@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
@@ -18,9 +19,9 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 public class LightFragment extends Fragment {
 
-    SearchView mSearchView;
-    TextView mTvGrades, mTvStarts, mTvRank;
-    SimpleDraweeView mIvLake;
+    private SearchView mSearchView;
+    private TextView mTvGrades, mTvStarts, mTvRank;
+    private SimpleDraweeView mIvLake;
 
 
     @Nullable
@@ -35,10 +36,17 @@ public class LightFragment extends Fragment {
 
         mTvRank = root.findViewById(R.id.light_rank);
         mTvRank.setOnClickListener(
-                v -> NavHostFragment.findNavController(this).navigate(R.id.rank_dest)
+                v -> NavHostFragment.findNavController(this)
+                        .navigate(R.id.rank_dest, null,
+                                new NavOptions.Builder()
+                                        .setEnterAnim(R.anim.slide_in_right)
+                                        .setExitAnim(R.anim.hide_out)
+                                        .setPopEnterAnim(R.anim.show_in)
+                                        .setPopExitAnim(R.anim.slide_out_right)
+                                        .build())
         );
         mTvGrades = root.findViewById(R.id.light_grades);
-        mTvStarts = root.findViewById(R.id.light_starts);
+        mTvStarts = root.findViewById(R.id.rank_starts);
         return root;
     }
 

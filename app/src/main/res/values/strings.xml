@@ -26,6 +26,9 @@
     <string name="light_circle">点亮河湖</string>
     <string name="ranking">排行榜</string>
     <string name="shahu">沙湖</string>
+    <string name="light_rank">点亮河湖排行榜</string>
+    <string name="user_rank">用户排行榜</string>
+    <string name="lake_rank">河湖排行榜</string>
 
     <string-array name="pwd_question">
         <item>请选择密保问题：</item>

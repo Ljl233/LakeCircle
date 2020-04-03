@@ -29,6 +29,8 @@
     <string name="light_rank">点亮河湖排行榜</string>
     <string name="user_rank">用户排行榜</string>
     <string name="lake_rank">河湖排行榜</string>
+    <string name="lighted">被点亮</string>
+    <string name="times">次</string>
 
     <string-array name="pwd_question">
         <item>请选择密保问题：</item>

@@ -9,15 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.example.lakecircle.R;
+
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class MineFragment extends Fragment {
 
     private AvatarView mAvatarAv;
     private TextView mUsernameTv;
     private TextView mGovernTv;
-    private TextView mBusinessTv;
+    private TextView mMerchantTv;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,13 +33,24 @@ public class MineFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_mine, container, false);
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        NavController navController = findNavController(this);
 
-        mAvatarAv = v.findViewById(R.id.av_mine);
-        mUsernameTv = v.findViewById(R.id.tv_mine_username);
-        mGovernTv = v.findViewById(R.id.tv_mine_government);
-        mBusinessTv = v.findViewById(R.id.tv_mine_business);
+        mAvatarAv = view.findViewById(R.id.av_mine);
+        mUsernameTv = view.findViewById(R.id.tv_mine_username);
+        mGovernTv = view.findViewById(R.id.tv_mine_government);
+        mMerchantTv = view.findViewById(R.id.tv_mine_merchant);
 
-        return v;
+        mAvatarAv.setCertificateGone();
+
+        mMerchantTv.setOnClickListener(v -> {
+            navController.navigate(R.id.certificate_merchant);
+        });
+
+        mGovernTv.setOnClickListener(v -> {
+            navController.navigate(R.id.certificate_government);
+        });
+
+        return view;
     }
 }

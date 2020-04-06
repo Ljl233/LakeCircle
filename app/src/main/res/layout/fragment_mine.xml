@@ -1,170 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#F5F5F5"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tb_mine"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/toolbar"/>
-    
+        android:background="@drawable/toolbar" />
+
     <LinearLayout
-        android:layout_marginVertical="29dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#ffffff">
-        
+        android:layout_marginVertical="29dp"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
         <com.example.lakecircle.ui.mine.view.AvatarView
             android:id="@+id/av_mine"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginTop="27dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="27dp" />
 
         <TextView
             android:id="@+id/tv_mine_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginVertical="11dp"
-            android:text="用户名"
             android:gravity="center"
+            android:text="用户名"
             android:textColor="#000000"
-            android:textSize="22sp"
-            android:layout_gravity="center_horizontal"/>
-        
+            android:textSize="22sp" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="23dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
-        android:background="#ffffff">
-        
+        android:padding="5dp">
+
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="2dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginVertical="2dp"/>
-        
+            android:src="@drawable/government_mine" />
+
         <TextView
             android:id="@+id/tv_mine_government"
-            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="政府认证"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginVertical="2dp"
-            />
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/merchant_mine" />
 
         <TextView
-            android:id="@+id/tv_mine_business"
-            android:layout_marginLeft="20dp"
+            android:id="@+id/tv_mine_merchant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="商家认证"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginVertical="2dp"
-            />
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/coupon_mine" />
 
         <TextView
             android:id="@+id/tv_mine_coupon"
-            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="我的优惠劵"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginVertical="2dp"
-            android:src="@drawable/helper"/>
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/helper" />
 
         <TextView
             android:id="@+id/tv_mine_touch"
-            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="联系我们"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff"
         android:orientation="horizontal"
-        android:background="#ffffff">
+        android:padding="5dp">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="24dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginVertical="2dp"
-            />
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/logoff" />
 
         <TextView
             android:id="@+id/tv_mine_logout"
-            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:text="退出登录"
             android:textColor="#000000"
-            android:textSize="25sp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 

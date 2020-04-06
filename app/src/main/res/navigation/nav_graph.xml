@@ -35,7 +35,14 @@
         android:id="@+id/mine_dest"
         android:name="com.example.lakecircle.ui.mine.view.MineFragment"
         android:label="@string/mine"
-        tools:layout="@layout/fragment_mine" />
+        tools:layout="@layout/fragment_mine" >
+        <action
+            android:id="@+id/certificate_government"
+            app:destination="@id/certificate_government_dest"/>
+        <action
+            android:id="@+id/certificate_merchant"
+            app:destination="@id/certificate_merchant_dest"/>
+    </fragment>
     <fragment
         android:id="@+id/light_dest"
         android:name="com.example.lakecircle.ui.home.light.LightFragment"
@@ -55,4 +62,14 @@
         android:name="com.example.lakecircle.ui.home.upimage.ULQActivity"
         android:label="activity_up_load_question"
         tools:layout="@layout/activity_up_load_question" />
+    <fragment
+        android:id="@+id/certificate_government_dest"
+        android:name="com.example.lakecircle.ui.mine.view.GovCerFragment"
+        android:label="政府认证"
+        tools:layout="@layout/fragment_government_certificate"/>
+    <fragment
+        android:id="@+id/certificate_merchant_dest"
+        android:name="com.example.lakecircle.ui.mine.view.MerCerFragment"
+        android:label="商家认证"
+        tools:layout="@layout/fragment_merchant_certificate"/>
 </navigation>

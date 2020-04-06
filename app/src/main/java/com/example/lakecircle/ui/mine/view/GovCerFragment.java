@@ -143,7 +143,7 @@ public class GovCerFragment extends Fragment {
                     storageDir      /* directory */
             );
         } catch (IOException e) {
-            Log.e("MerCerFragment","创建文件错误");
+            Log.e("GovCerFragment","创建文件错误");
             e.printStackTrace();
         }
         // Save a file: path for use with ACTION_VIEW intents

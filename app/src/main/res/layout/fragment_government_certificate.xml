@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="政府认证"
+            android:text="@string/govern_cer"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="负责河段（湖）"
+                android:text="@string/govern_cer_q1"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_single_line_edit_text"
-                android:hint="请输入河湖名称"
+                android:hint="@string/govern_cer_a1"
                 android:maxLines="1"
                 android:padding="3dp"
                 android:textColor="#000000"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="河湖长姓名"
+                android:text="@string/govern_cer_q2"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_single_line_edit_text"
-                android:hint="请输入姓名"
+                android:hint="@string/govern_cer_a2"
                 android:maxLines="1"
                 android:padding="3dp"
                 android:textColor="#000000"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="联系方式"
+                android:text="@string/govern_cer_q3"
                 android:textColor="#000000"
                 android:textSize="20sp" />
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_single_line_edit_text"
-                android:hint="请输入手机或电话号码"
+                android:hint="@string/govern_cer_a3"
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLines="1"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimaryDark"
-                android:text="申请认证"
+                android:text="@string/mine_cer"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 

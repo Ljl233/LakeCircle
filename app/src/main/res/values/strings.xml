@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">LakeCircle</string>
+
     <string name="login">登  录</string>
     <string name="logup">注册</string>
     <string name="forget_password">忘记密码</string>
+    <string name="psw">密码</string>
+    <string name="account">账号</string>
+    <string name="confirm_pwd">确认密码</string>
+    <string name="pwdquestion">密报问题</string>
+
     <string name="home">首页</string>
     <string name="journey">行程</string>
     <string name="lakecircle">河湖圈</string>
     <string name="mine">我的</string>
+
+    <!--首页-->
     <string name="wuhan">武汉</string>
     <string name="problem_upload">问题上传</string>
     <string name="activity_detail">活动详情</string>
@@ -15,10 +23,7 @@
     <string name="travel">河湖旅游</string>
     <string name="lake_walk">河湖行</string>
     <string name="light_lake">点亮河湖</string>
-    <string name="psw">密码</string>
-    <string name="account">账号</string>
-    <string name="confirm_pwd">确认密码</string>
-    <string name="pwdquestion">密报问题</string>
+
     <string name="up_load_picture">上传照片</string>
     <string name="question_content">问题内容</string>
     <string name="pick_from_album">从相册选择</string>
@@ -40,4 +45,29 @@
         <item>我的名字</item>
 
     </string-array>
+
+    <!--我的-->
+    <string name="mer_cer">商家认证</string>
+    <string name="govern_cer">政府认证</string>
+    <string name="govern_entrance">河湖长入口</string>
+    <string name="mer_entrance">商家入口</string>
+    <string name="mine_coupon">我的优惠劵</string>
+    <string name="contact_us">联系我们</string>
+    <string name="logoff">退出登录</string>
+
+    <!--我的：认证-->
+    <string name="mine_cer">申请认证</string>
+    <string name="govern_cer_q1">负责河段（湖）</string>
+    <string name="govern_cer_a1">请输入河湖名称</string>
+    <string name="govern_cer_q2">河湖长姓名</string>
+    <string name="govern_cer_a2">请输入姓名</string>
+    <string name="govern_cer_q3">联系方式</string>
+    <string name="govern_cer_a3">请输入手机或电话号码</string>
+    <string name="mer_cer_q1">店铺名称</string>
+    <string name="mer_cer_a1">请输入店铺名称</string>
+    <string name="mer_cer_q2">店主姓名</string>
+    <string name="mer_cer_a2">请输入姓名</string>
+    <string name="mer_cer_q3">联系方式</string>
+    <string name="mer_cer_a3">请输入手机或电话号码</string>
+
 </resources>

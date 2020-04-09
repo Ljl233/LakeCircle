@@ -3,25 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="40dp"
-    android:layout_height="40dp">
+    android:layout_width="90dp"
+    android:layout_height="90dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_avatar_view_mine"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         fresco:roundAsCircle="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        fresco:placeholderImage="@drawable/avatar_placeholder"
         fresco:placeholderImageScaleType="centerInside"
         fresco:roundWithOverlayColor="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/iv_avatar_view_mine"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:scaleType="fitCenter"
         android:src="@drawable/avatar_mine_background"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,10 +32,11 @@
 
     <ImageView
         android:id="@+id/iv_certificate_avatar_view_mine"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="1dp"
+        android:src="@drawable/avatar_certificate"
         app:layout_constraintBottom_toBottomOf="@id/iv_avatar_view_mine"
         app:layout_constraintEnd_toEndOf="@id/iv_avatar_view_mine" />
 

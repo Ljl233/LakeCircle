@@ -3,6 +3,7 @@ package com.example.lakecircle.ui.home.upimage;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -14,12 +15,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lakecircle.R;
 import com.facebook.common.util.UriUtil;
@@ -34,6 +40,9 @@ public class ULQActivity extends AppCompatActivity {
 
     private SimpleDraweeView mDraweeULQ;
     private EditText mEditText;
+    private TextView mTvHint;
+    private ConstraintLayout parent;
+    private Button mBtSubmit;
     private String[] mPermissions = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -49,9 +58,15 @@ public class ULQActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_up_load_question);
 
+        parent = findViewById(R.id.ulq_content);
         mDraweeULQ = findViewById(R.id.ulq_image);
         mEditText = findViewById(R.id.ed_ulq);
-
+        mTvHint = findViewById(R.id.tv_ulq);
+        mBtSubmit = findViewById(R.id.ulq_submit);
+        mBtSubmit.setOnClickListener(v -> {
+            Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
+            finish();
+        });
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
         });
@@ -60,7 +75,7 @@ public class ULQActivity extends AppCompatActivity {
     private void showPopupWindow() {
         View popView = LayoutInflater.from(this).inflate(R.layout.pop_window_ulq, null);
         Button btAlbum = popView.findViewById(R.id.pop_photo);
-        Button btPhoto = popView.findViewById(R.id.pop_photo);
+        Button btPhoto = popView.findViewById(R.id.pop_camera);
         Button btDismiss = popView.findViewById(R.id.pop_dismiss);
 
         int width = getResources().getDisplayMetrics().widthPixels;
@@ -68,8 +83,8 @@ public class ULQActivity extends AppCompatActivity {
 
         PopupWindow popupWindow = new PopupWindow(popView, width, height, true);
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(popView.getRootView(), Gravity.BOTTOM, 0, 0);
-
+        popupWindow.showAtLocation(parent, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        popView.setOnClickListener(v -> popupWindow.dismiss());
         btAlbum.setOnClickListener(v -> {
             checkOrRequestPermission("Album");
             popupWindow.dismiss();
@@ -156,6 +171,7 @@ public class ULQActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            mTvHint.setText("");
             if (requestCode == REQUEST_ALBUM) {
                 Uri uri = data.getData();
                 mDraweeULQ.setImageURI(uri);

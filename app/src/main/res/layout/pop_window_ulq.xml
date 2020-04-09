@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp">
-
+    android:background="@drawable/corners_bg"
+    android:paddingTop="10dp">
 
     <Button
         android:id="@+id/pop_camera"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
-
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/edittext_left_right"
+        android:gravity="center"
         android:text="拍照上传"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pop_photo" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pop_dismiss"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/pop_photo"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/edittext_left_right"
+        android:gravity="center"
         android:text="@string/pick_from_album"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/pop_camera"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/pop_dismiss"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/edittext_left_right"
+        android:gravity="center"
         android:text="@string/dismiss"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pop_camera" />
-
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

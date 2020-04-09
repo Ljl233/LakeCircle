@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ public class LightFragment extends Fragment {
     private SearchView mSearchView;
     private TextView mTvGrades, mTvStarts, mTvRank;
     private SimpleDraweeView mIvLake;
-
+    private ImageView mIvStar;
 
     @Nullable
     @Override
@@ -47,8 +48,25 @@ public class LightFragment extends Fragment {
         );
         mTvGrades = root.findViewById(R.id.light_grades);
         mTvStarts = root.findViewById(R.id.rank_starts);
+        mIvStar = root.findViewById(R.id.light_star);
+        mIvStar.setOnClickListener(v -> {
+            lightLake();
+        });
         return root;
     }
+
+    private void lightLake() {
+        mIvStar.setImageResource(R.drawable.ic_star_24dp);
+    }
+
+    public void showLakePicture(String lakeAddress) {
+        mIvLake.setImageURI(lakeAddress);
+    }
+
+    public void showLakePicture(int resource) {
+        mIvLake.setImageResource(resource);
+    }
+
 
     public void setGrades(String grades) {
         mTvGrades.setText(grades);

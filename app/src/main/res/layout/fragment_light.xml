@@ -151,4 +151,14 @@
         app:layout_constraintVertical_bias="0.048"
         app:queryHint="@string/shahu" />
 
+    <ImageView
+        android:id="@+id/light_star"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_star_border_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_light_lake"
+        app:layout_constraintEnd_toEndOf="@+id/iv_light_lake"
+        app:layout_constraintStart_toStartOf="@+id/iv_light_lake"
+        app:layout_constraintTop_toTopOf="@+id/iv_light_lake" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

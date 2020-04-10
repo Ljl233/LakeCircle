@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.mine.view;
+package com.example.lakecircle.ui.mine.view.certificate;
 
 import android.Manifest;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.ui.SuccessDialog;
 import com.facebook.common.util.UriUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -50,6 +51,7 @@ public class GovCerFragment extends Fragment {
     private Toolbar mToolbar;
     private ImageView mUploadIv;
     private EditText mLakeEt, mNameEt, mPhoneEt;
+    private TextView mUploadTv;
     private Button mPostBtn;
 
     @Nullable
@@ -63,6 +65,9 @@ public class GovCerFragment extends Fragment {
         mNameEt = view.findViewById(R.id.et_name_govern_cer);
         mPhoneEt = view.findViewById(R.id.et_phone_govern_cer);
         mPostBtn = view.findViewById(R.id.btn_govern_cer);
+        mUploadTv = view.findViewById(R.id.tv_govern_cer);
+
+        mUploadTv.setVisibility(View.VISIBLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setNavigationOnClickListener(v -> {
@@ -75,6 +80,7 @@ public class GovCerFragment extends Fragment {
         });
         mPostBtn.setOnClickListener(v -> {
 
+            SuccessDialog.newInstance("您已成功提交申请，请等待审核");
         });
 
         return view;
@@ -113,6 +119,7 @@ public class GovCerFragment extends Fragment {
                             .path(currentPhotoPath)
                             .build();
                     mUploadIv.setImageURI(uri);
+                    mUploadTv.setVisibility(View.GONE);
                 }
                 break;
             }
@@ -120,6 +127,7 @@ public class GovCerFragment extends Fragment {
                 try {
                     Uri uri = data.getData();
                     mUploadIv.setImageURI(uri);
+                    mUploadTv.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.mine.view;
+package com.example.lakecircle.ui.mine.view.certificate;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.ui.SuccessDialog;
 import com.facebook.common.util.UriUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -55,6 +56,7 @@ public class MerCerFragment extends Fragment {
     private Toolbar mToolbar;
     private ImageView mUploadIv;
     private EditText mStoreEt, mNameEt, mPhoneEt;
+    private TextView mUploadTv;
     private Button mPostBtn;
 
     @Nullable
@@ -68,6 +70,9 @@ public class MerCerFragment extends Fragment {
         mNameEt = view.findViewById(R.id.et_name_mer_cer);
         mPhoneEt = view.findViewById(R.id.et_phone_mer_cer);
         mPostBtn = view.findViewById(R.id.btn_mer_cer);
+        mUploadTv = view.findViewById(R.id.tv_mer_cer);
+
+        mUploadTv.setVisibility(View.VISIBLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setNavigationOnClickListener(v -> {
@@ -80,6 +85,7 @@ public class MerCerFragment extends Fragment {
         });
         mPostBtn.setOnClickListener(v -> {
 
+            SuccessDialog.newInstance("您已成功提交申请，请等待审核");
         });
 
         return view;
@@ -118,6 +124,7 @@ public class MerCerFragment extends Fragment {
                         .path(currentPhotoPath)
                         .build();
                     mUploadIv.setImageURI(uri);
+                    mUploadTv.setVisibility(View.GONE);
                 }
                 break;
             }
@@ -125,6 +132,7 @@ public class MerCerFragment extends Fragment {
                 try {
                     Uri uri = data.getData();
                     mUploadIv.setImageURI(uri);
+                    mUploadTv.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

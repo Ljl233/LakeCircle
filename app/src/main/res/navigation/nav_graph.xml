@@ -35,13 +35,19 @@
         android:id="@+id/mine_dest"
         android:name="com.example.lakecircle.ui.mine.view.MineFragment"
         android:label="@string/mine"
-        tools:layout="@layout/fragment_mine" >
+        tools:layout="@layout/fragment_mine">
         <action
-            android:id="@+id/certificate_government"
-            app:destination="@id/certificate_government_dest"/>
+            android:id="@+id/action_certificate_government"
+            app:destination="@id/certificate_government_dest" />
         <action
-            android:id="@+id/certificate_merchant"
-            app:destination="@id/certificate_merchant_dest"/>
+            android:id="@+id/action_certificate_merchant"
+            app:destination="@id/certificate_merchant_dest" />
+        <action
+            android:id="@+id/action_entrance_government"
+            app:destination="@id/entrance_government_dest" />
+        <action
+            android:id="@+id/action_entrance_merchant"
+            app:destination="@id/entrance_merchant_dest" />
     </fragment>
     <fragment
         android:id="@+id/light_dest"
@@ -64,12 +70,39 @@
         tools:layout="@layout/activity_up_load_question" />
     <fragment
         android:id="@+id/certificate_government_dest"
-        android:name="com.example.lakecircle.ui.mine.view.GovCerFragment"
+        android:name="com.example.lakecircle.ui.mine.view.certificate.GovCerFragment"
         android:label="政府认证"
-        tools:layout="@layout/fragment_government_certificate"/>
+        tools:layout="@layout/fragment_government_certificate" />
     <fragment
         android:id="@+id/certificate_merchant_dest"
-        android:name="com.example.lakecircle.ui.mine.view.MerCerFragment"
+        android:name="com.example.lakecircle.ui.mine.view.certificate.MerCerFragment"
         android:label="商家认证"
-        tools:layout="@layout/fragment_merchant_certificate"/>
+        tools:layout="@layout/fragment_merchant_certificate" />
+    <fragment
+        android:id="@+id/entrance_government_dest"
+        android:name="com.example.lakecircle.ui.mine.view.entrance.GovernEnFragment"
+        android:label="@string/govern_entrance"
+        tools:layout="@layout/fragment_government_entrance">
+        <action
+            android:id="@+id/action_activity_post"
+            app:destination="@id/activity_post_dest" />
+        <action
+            android:id="@+id/action_problem_view"
+            app:destination="@id/problem_view_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/entrance_merchant_dest"
+        android:name="com.example.lakecircle.ui.mine.view.entrance.MerchantEnFragment"
+        android:label="@string/mer_entrance"
+        tools:layout="@layout/fragment_merchant_entrance" />
+    <fragment
+        android:id="@+id/activity_post_dest"
+        android:name="com.example.lakecircle.ui.mine.view.govern.ActivityPostFragment"
+        android:label="@string/activity_post"
+        tools:layout="@layout/fragment_activity_post" />
+    <fragment
+        android:id="@+id/problem_view_dest"
+        android:name="com.example.lakecircle.ui.mine.view.govern.ProblemViewFragment"
+        android:label="@string/problem_view"
+        tools:layout="@layout/fragment_problem_view" />
 </navigation>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,6 +11,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/toolbar"
         app:navigationIcon="@drawable/ic_nav_white_24dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,17 +28,20 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iv_mer_cer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="200dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/placeholder_pic"
-                android:scaleType="fitXY"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.50"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_store_mer_cer"
@@ -46,18 +50,24 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/mer_cer_q1"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_mer_cer" />
 
             <EditText
                 android:id="@+id/et_store_mer_cer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"
                 android:hint="@string/mer_cer_a1"
                 android:maxLines="1"
                 android:padding="3dp"
                 android:textColor="#000000"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_store_mer_cer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_store_mer_cer" />
 
             <TextView
                 android:id="@+id/tv_name_mer_cer"
@@ -66,18 +76,24 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/mer_cer_q2"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_store_mer_cer" />
 
             <EditText
                 android:id="@+id/et_name_mer_cer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"
                 android:hint="@string/mer_cer_a2"
                 android:maxLines="1"
                 android:padding="3dp"
                 android:textColor="#000000"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_mer_cer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_mer_cer" />
 
             <TextView
                 android:id="@+id/tv_phone_mer_cer"
@@ -86,12 +102,15 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/mer_cer_q3"
                 android:textColor="#000000"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_name_mer_cer" />
 
             <EditText
                 android:id="@+id/et_phone_mer_cer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"
                 android:hint="@string/mer_cer_a3"
                 android:importantForAutofill="no"
@@ -99,19 +118,38 @@
                 android:maxLines="1"
                 android:padding="3dp"
                 android:textColor="#000000"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_phone_mer_cer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_phone_mer_cer" />
 
             <Button
                 android:id="@+id/btn_mer_cer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@color/colorPrimaryDark"
                 android:text="申请认证"
                 android:textColor="#ffffff"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone_mer_cer" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_mer_cer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:text="@string/cer_picture_upload"
+                android:textColor="#1C1C1C"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_mer_cer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/iv_mer_cer" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 

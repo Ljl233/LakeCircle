@@ -44,11 +44,13 @@ public class MineFragment extends Fragment {
         mAvatarAv.setCertificateGone();
 
         mMerchantTv.setOnClickListener(v -> {
-            navController.navigate(R.id.certificate_merchant);
+            navController.navigate(R.id.action_certificate_merchant);
+            //navController.navigate(R.id.action_entrance_merchant);
         });
 
         mGovernTv.setOnClickListener(v -> {
-            navController.navigate(R.id.certificate_government);
+            //navController.navigate(R.id.action_certificate_government);
+            navController.navigate(R.id.action_entrance_government);
         });
 
         return view;

@@ -68,5 +68,26 @@
     <string name="mer_cer_a2">请输入姓名</string>
     <string name="mer_cer_q3">联系方式</string>
     <string name="mer_cer_a3">请输入手机或电话号码</string>
+    <string name="cer_picture_upload">上传相关证件照片</string>
+
+    <!--我的：入口-->
+    <string name="activity_post">发布活动</string>
+    <string name="problem_view">查看问题图片</string>
+
+    <!--发布活动-->
+    <string name="activity_name">活动名称</string>
+    <string name="activity_type">活动类型</string>
+    <string name="activity_place">活动地点</string>
+    <string name="activity_time">活动时长</string>
+    <string name="activity_people_number">招募人数</string>
+    <string name="activity_introduction">活动详情介绍</string>
+    <string name="activity_point">活动完成所获积分</string>
+    <string name="activity_picture">上传活动相关图片</string>
+
+    <!--查看问题图片-->
+    <string name="problem_picture">河湖问题图片</string>
+    <string name="problem_reply">回复</string>
+    <string name="problem_unresolved">待解决</string>
+    <string name="problem_resolved">已解决</string>
 
 </resources>

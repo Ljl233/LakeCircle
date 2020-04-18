@@ -48,4 +48,5 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.5")
 
     implementation 'com.alibaba:fastjson:1.1.71.android'
+    implementation 'me.relex:photodraweeview:2.0.0'
 }

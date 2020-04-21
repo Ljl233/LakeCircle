@@ -48,6 +48,7 @@
             android:layout_marginEnd="28dp"
             android:layout_marginRight="28dp"
             android:src="@drawable/notice_line"
+            app:layout_constraintBottom_toBottomOf="@+id/home_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/home_address" />
 
@@ -131,11 +132,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:layout_marginTop="32dp"
-            android:layout_marginRight="10dp"
             android:background="@drawable/corners_bg"
             android:elevation="@dimen/cardview_default_elevation"
             android:paddingBottom="10dp"
@@ -233,14 +233,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/home_tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:text="欢迎光临"
+        android:layout_marginLeft="20dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
+        <com.amap.api.maps.MapView
+            android:id="@+id/home_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

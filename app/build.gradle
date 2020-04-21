@@ -10,6 +10,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+        }
     }
     buildTypes {
         release {
@@ -49,4 +53,9 @@ dependencies {
 
     implementation 'com.alibaba:fastjson:1.1.71.android'
     implementation 'me.relex:photodraweeview:2.0.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.amap.api:3dmap:7.0.0'
+//    implementation 'com.amap.api:location:4.9.0'
+    implementation 'com.amap.api:search:7.3.0'
 }

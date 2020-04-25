@@ -26,16 +26,16 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_problem_view"
         android:layout_width="match_parent"
-        app:tabTextColor="#707070"
-        app:tabSelectedTextColor="#00561F"
+        android:layout_height="wrap_content"
         app:tabGravity="fill"
         app:tabMode="fixed"
-        android:layout_height="wrap_content"/>
+        app:tabSelectedTextColor="#00561F"
+        app:tabTextColor="#707070" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp_problem_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

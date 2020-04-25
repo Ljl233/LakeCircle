@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_home_dest_to_ULQActivity"
             app:destination="@id/ulq_dest" />
+        <action
+            android:id="@+id/action_home_dest_to_activities"
+            app:destination="@id/activities_dest" />
     </fragment>
     <fragment
         android:id="@+id/circle_dest"
@@ -105,4 +108,27 @@
         android:name="com.example.lakecircle.ui.mine.view.govern.ProblemViewFragment"
         android:label="@string/problem_view"
         tools:layout="@layout/fragment_problem_view" />
+    <fragment
+        android:id="@+id/activities_dest"
+        android:name="com.example.lakecircle.ui.home.activities.ActivitiesFragment"
+        android:label="activities"
+        tools:layout="@layout/fragment_activities">
+        <action
+            android:id="@+id/action_activities_detail"
+            app:destination="@id/activities_detail_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/activities_detail_dest"
+        android:name="com.example.lakecircle.ui.home.activities.ActivitiesDetailFragment"
+        android:label="activities_detail"
+        tools:layout="@layout/fragment_activities_detail">
+        <action
+            android:id="@+id/action_activities_apply"
+            app:destination="@id/activities_apply_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/activities_apply_dest"
+        android:name="com.example.lakecircle.ui.home.activities.ActivitiesApplyFragment"
+        android:label="activities_apply"
+        tools:layout="@layout/fragment_activities_apply" />
 </navigation>

@@ -7,5 +7,5 @@
     android:gravity="center_horizontal"
     android:singleLine="true"
     android:textAlignment="inherit"
-    android:textColor="#07935"
+    android:textColor="#007935"
     android:textSize="20sp" />

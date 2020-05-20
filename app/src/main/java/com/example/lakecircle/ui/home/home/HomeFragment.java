@@ -1,5 +1,9 @@
 package com.example.lakecircle.ui.home.home;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavOptions;
@@ -20,6 +26,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
@@ -37,6 +44,7 @@ public class HomeFragment extends Fragment {
     private MapView mMapView = null;
     private Bundle mSaveInstanceState;
     private AMap aMap;
+    private final static int LOCATION_REQUEST_CODE = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +77,39 @@ public class HomeFragment extends Fragment {
         mNavController = NavHostFragment.findNavController(this);
 
         initView();
+        checkOrRequestPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         initMap();
         return view;
     }
+
+    private void checkOrRequestPermission(String permission) {
+        if (!checkPermission(this.getContext(), permission)) {
+            requestPermission(this.getActivity(), new String[]{permission}, LOCATION_REQUEST_CODE);
+        }
+    }
+
+    private boolean checkPermission(Context context, String permission) {
+        if (ContextCompat.checkSelfPermission(context, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
+    }
+
+    private void requestPermission(Activity activity, String[] permissions, int requestCode) {
+        ActivityCompat.requestPermissions(activity, permissions, requestCode);
+    }
+
+    private boolean checkPermissions(Context context, String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(context, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private void initMap() {
         //1.显示地图
@@ -82,6 +120,14 @@ public class HomeFragment extends Fragment {
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
+
+        //显示定位蓝点
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        myLocationStyle.interval(1000);
+        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
+        aMap.setMyLocationEnabled(true);
+
         GeocodeSearch geocodeSearch = new GeocodeSearch(this.getContext());
         //2.get location
         aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
@@ -102,7 +148,7 @@ public class HomeFragment extends Fragment {
                 //成功码1000,获取城市名
                 if (i == 1000) {
                     String city = regeocodeResult.getRegeocodeAddress().getCity();
-                    String s = "欢迎来到" + city;
+                    String s = "欢迎来到 " + city;
                     mTvWelcome.setText(s);
                 }
             }

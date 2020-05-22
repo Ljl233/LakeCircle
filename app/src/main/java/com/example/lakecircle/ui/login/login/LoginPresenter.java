@@ -21,7 +21,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         String account = mView.getAccountFromView();
         String password = mView.getPasswordFromView();
 
-        NetUtil.getInstance().getApi().login(account, password)
+        NetUtil.getInstance().getApi().login(password, account)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(v -> mView.showLoad())

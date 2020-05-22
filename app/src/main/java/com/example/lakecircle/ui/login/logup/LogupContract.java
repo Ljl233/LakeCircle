@@ -18,6 +18,8 @@ public interface LogupContract {
         String getAnswer();
 
         void backToLogin();
+
+        void showError();
     }
 
     interface Presenter {

@@ -37,6 +37,12 @@ public class LogupActivity extends AppCompatActivity implements LogupContract.Vi
         initView();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter = new LogupPresenter(this);
+    }
+
     private void initView() {
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(
@@ -97,6 +103,12 @@ public class LogupActivity extends AppCompatActivity implements LogupContract.Vi
     public void backToLogin() {
         startActivity(new Intent(this, LoginActivity.class));
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+        this.finish();
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
     }
 
 }

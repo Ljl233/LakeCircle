@@ -37,7 +37,7 @@ import com.example.lakecircle.R;
 public class HomeFragment extends Fragment {
 
     private SearchView mSearchView;
-    private TextView mTvAddress, mTvTimeLake, mTvTravel, mTvLakeWalk, mTvLightLake, mTvWelcome;
+    private TextView mTvLocation, mTvTimeLake, mTvTravel, mTvLakeWalk, mTvLightLake, mTvWelcome;
     private ImageView mIvProblem, mIvActivity, mIvMerchant, mIvNotice;
     private NavController mNavController;
     private String TAG = "HomeFragment: ";
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                 mSearchView.clearFocus();
         });
         mSearchView = view.findViewById(R.id.searchView);
-        mTvAddress = view.findViewById(R.id.home_address);
+        mTvLocation = view.findViewById(R.id.home_location);
         mTvLakeWalk = view.findViewById(R.id.home_tv_lakewalk);
         mTvLightLake = view.findViewById(R.id.home_tv_lightlake);
         mTvTimeLake = view.findViewById(R.id.home_tv_timelake);
@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         myLocationStyle.interval(1000);
         aMap.setMyLocationStyle(myLocationStyle);
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
+//        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
 
         GeocodeSearch geocodeSearch = new GeocodeSearch(this.getContext());
@@ -190,12 +190,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        mTvAddress.setOnClickListener(v -> {
+        mTvLocation.setOnClickListener(v -> {
 
         });
 
         mTvLakeWalk.setOnClickListener(v -> {
-
+            NavOptions options = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.hide_out)
+                    .setPopEnterAnim(R.anim.show_in)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+            mNavController.navigate(R.id.journey_dest, null, options);
         });
 
         mTvLightLake.setOnClickListener(v -> {
@@ -217,7 +223,13 @@ public class HomeFragment extends Fragment {
         });
 
         mIvActivity.setOnClickListener(v -> {
-
+            NavOptions options = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.hide_out)
+                    .setPopEnterAnim(R.anim.show_in)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+            mNavController.navigate(R.id.activities_dest, null, options);
         });
 
         mIvMerchant.setOnClickListener(v -> {

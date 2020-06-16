@@ -70,6 +70,7 @@ public class ULQActivity extends AppCompatActivity {
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
         });
+        EditText test_edit = findViewById(R.id.test_edit);
     }
 
     private void showPopupWindow() {

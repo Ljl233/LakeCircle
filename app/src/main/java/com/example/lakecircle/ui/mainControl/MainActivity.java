@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
 //                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 //        }
 
-//        initFragment();
-//        initView();
-
         NavHostFragment host = (NavHostFragment)
                 getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
 

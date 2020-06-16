@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import com.amap.api.maps.AMap;
@@ -15,6 +18,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.example.lakecircle.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,9 @@ public class JourneyFragment extends Fragment {
     private Bundle mSavedInstanceState;
     private List<LatLng> mLatLngs;
     private ArrayList<MarkerOptions> markerOptions;
+    private View mBottomSheet;
+    private BottomSheetBehavior mBehavior;
+    private ImageView mBtDown, mBtUp;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +48,33 @@ public class JourneyFragment extends Fragment {
         mMapView = root.findViewById(R.id.journey_map);
         mMapView.onCreate(mSavedInstanceState);
         initMap();
+
+        initBottomSheet(root);
+
         return root;
+    }
+
+    private void initBottomSheet(View root) {
+        mBtDown = root.findViewById(R.id.walk_button_down);
+        mBtDown.setOnClickListener(v -> mBehavior.setState(BottomSheetBehavior.STATE_HIDDEN));
+
+        mBtUp = root.findViewById(R.id.walk_button_up);
+        mBtUp.setOnClickListener(v -> mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED));
+
+        mBottomSheet = root.findViewById(R.id.bottom_sheet);
+        mBehavior = BottomSheetBehavior.from(mBottomSheet);
+        mBehavior.setHideable(true);
+        mBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
     }
 
     private void initMap() {

@@ -10,7 +10,7 @@ public class NetUtil {
 
     private NetUtil() {
         api = new Retrofit.Builder()
-                .baseUrl("http://")
+                .baseUrl("http://pinpin.muxixyz.com")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

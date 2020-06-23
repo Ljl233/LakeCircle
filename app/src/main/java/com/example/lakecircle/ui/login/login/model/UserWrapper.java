@@ -3,6 +3,8 @@ package com.example.lakecircle.ui.login.login.model;
 import com.alibaba.fastjson.JSONObject;
 import com.example.lakecircle.commonUtils.SPUtils;
 
+import java.util.Collection;
+
 
 public class UserWrapper {
     public User user;
@@ -23,5 +25,9 @@ public class UserWrapper {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getToken() {
+        return null;
     }
 }

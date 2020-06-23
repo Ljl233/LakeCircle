@@ -18,7 +18,7 @@ public class LogupPresenter implements LogupContract.Presenter {
 
     @Override
     public void logup() {
-        if (mView.isMatch()) mView.showNotMatch();
+        if (!mView.isMatch()) mView.showNotMatch();
         else {
             //todo:网络请求
             LogupRequireBody body = new LogupRequireBody();

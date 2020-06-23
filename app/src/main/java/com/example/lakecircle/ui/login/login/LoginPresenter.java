@@ -2,6 +2,7 @@ package com.example.lakecircle.ui.login.login;
 
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.login.login.model.LoginResponse;
+import com.example.lakecircle.ui.login.login.model.UserBean;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +22,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         String account = mView.getAccountFromView();
         String password = mView.getPasswordFromView();
 
-        NetUtil.getInstance().getApi().login(password, account)
+        NetUtil.getInstance().getApi().login(new UserBean(account,password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(v -> mView.showLoad())

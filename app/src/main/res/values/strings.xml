@@ -93,5 +93,6 @@
     <string name="time">时间</string>
     <string name="distance">距离(km)</string>
     <string name="grades">当前所获积分</string>
+    <string name="user_name">用户名</string>
 
 </resources>

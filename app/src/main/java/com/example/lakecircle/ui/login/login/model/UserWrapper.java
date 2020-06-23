@@ -7,6 +7,7 @@ import java.util.Collection;
 
 
 public class UserWrapper {
+    private final SPUtils spUtils;
     public User user;
 
     public static UserWrapper getInstance() {
@@ -14,7 +15,7 @@ public class UserWrapper {
     }
 
     private UserWrapper() {
-        SPUtils spUtils = SPUtils.getInstance(SPUtils.SP_CONFIG);
+        spUtils = SPUtils.getInstance(SPUtils.SP_CONFIG);
         String value = spUtils.getString("User", "");
         if (value.length() == 0) {
             this.user = null;
@@ -23,11 +24,17 @@ public class UserWrapper {
         }
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
     public String getToken() {
-        return null;
+        if (user == null)
+            return "";
+        return user.getToken();
     }
 }

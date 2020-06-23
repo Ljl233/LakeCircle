@@ -1,15 +1,16 @@
 package com.example.lakecircle.ui.login.login.model;
 
 public class User {
-    private String account;
+    private String username;
     private String psw;
+    private String token;
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPsw() {
@@ -18,5 +19,13 @@ public class User {
 
     public void setPsw(String psw) {
         this.psw = psw;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

@@ -22,7 +22,7 @@ public class NetUtil {
 
         client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-//                .addInterceptor(new AddTokenInterceptor("pinpin.muxixyz.com"))
+                .addInterceptor(new AddTokenInterceptor("pinpin.muxixyz.com"))
                 .build();
 
         api = new Retrofit.Builder()

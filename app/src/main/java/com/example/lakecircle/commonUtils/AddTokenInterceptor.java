@@ -27,7 +27,7 @@ public class AddTokenInterceptor implements Interceptor {
 
         if (!userWrapper.getToken().isEmpty()) {
             if (chain.request().url().host().equals(host))
-                builder.addHeader("token", userWrapper.getToken());
+                builder.addHeader("Bearer token", userWrapper.getToken());
         }
         return chain.proceed(builder.build());
     }

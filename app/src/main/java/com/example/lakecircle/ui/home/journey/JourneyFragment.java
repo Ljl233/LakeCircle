@@ -23,6 +23,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 河湖行
+ */
 public class JourneyFragment extends Fragment {
 
     private MapView mMapView;

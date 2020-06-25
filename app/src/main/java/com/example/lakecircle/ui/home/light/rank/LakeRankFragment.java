@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.commonUtils.BaseResponseModel;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
 
@@ -41,7 +42,8 @@ public class LakeRankFragment extends Fragment {
 
     private void initList() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        mRecyclerView.setAdapter(new MyAdapter(LakeRankBean.getDefaultLakeRanks()));
+//        mRecyclerView.setAdapter(new MyAdapter(LakeRankBean.getDefaultLakeRanks()));
+        getLakeList();
     }
 
     private void getLakeList() {
@@ -50,15 +52,15 @@ public class LakeRankFragment extends Fragment {
         NetUtil.getInstance().getApi().getLakeRank()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<LakeRankBean>>() {
+                .subscribe(new Observer<BaseResponseModel<LakeRankBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<LakeRankBean> lakeRankBeans) {
-                        adapter.setLakes(lakeRankBeans);
+                    public void onNext(BaseResponseModel<LakeRankBean> lakeRankBeans) {
+                        adapter.setLakes(lakeRankBeans.getData());
                     }
 
                     @Override
@@ -72,6 +74,10 @@ public class LakeRankFragment extends Fragment {
                     }
                 });
 
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.VH> {

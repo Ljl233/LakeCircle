@@ -1,5 +1,6 @@
 package com.example.lakecircle.commonUtils;
 
+
 import com.example.lakecircle.ui.login.login.model.UserWrapper;
 
 import java.io.IOException;
@@ -27,8 +28,9 @@ public class AddTokenInterceptor implements Interceptor {
 
         if (!userWrapper.getToken().isEmpty()) {
             if (chain.request().url().host().equals(host))
-                builder.addHeader("Bearer token", userWrapper.getToken());
+                builder.addHeader("Authorization", "Bearer " + userWrapper.getToken());
         }
+
         return chain.proceed(builder.build());
     }
 }

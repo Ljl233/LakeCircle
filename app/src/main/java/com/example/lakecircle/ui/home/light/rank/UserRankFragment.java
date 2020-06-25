@@ -2,6 +2,7 @@ package com.example.lakecircle.ui.home.light.rank;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,21 +17,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.NetUtil;
+import com.example.lakecircle.commonUtils.BaseResponseModel;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
-import com.example.lakecircle.ui.login.login.model.User;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class UserRankFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    private Context context = this.getContext();
+    private Context context = getContext();
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -42,7 +46,7 @@ public class UserRankFragment extends Fragment {
     }
 
     private void initList() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 //        mRecyclerView.setAdapter(new UserListAdapter(UserRankBean.getDefaultBeans()));
         getUserList();
     }
@@ -52,15 +56,15 @@ public class UserRankFragment extends Fragment {
         NetUtil.getInstance().getApi().getUserRank()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<UserRankBean>>() {
+                .subscribe(new Observer<BaseResponseModel<UserRankBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(List<UserRankBean> userRankBeans) {
-                        adapter.setUsers(userRankBeans);
+                    public void onNext(BaseResponseModel<UserRankBean> userRankBeans) {
+                        adapter.setUsers(userRankBeans.getData());
                     }
 
                     @Override

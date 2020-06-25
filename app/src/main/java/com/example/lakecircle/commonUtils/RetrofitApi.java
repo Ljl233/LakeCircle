@@ -10,9 +10,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -26,9 +23,9 @@ public interface RetrofitApi {
 
 
     //点亮河湖排行榜
-    @GET("/rank/user/")
-    Observable<List<UserRankBean>> getUserRank();
+    @GET("http://pinpin.muxixyz.com/api/v1/rank/user/")
+    Observable<BaseResponseModel<UserRankBean>> getUserRank();
 
-    @GET("/rank/lake/")
-    Observable<List<LakeRankBean>> getLakeRank();
+    @GET("http://pinpin.muxixyz.com/api/v1/rank/lake/")
+    Observable<BaseResponseModel<LakeRankBean>> getLakeRank();
 }

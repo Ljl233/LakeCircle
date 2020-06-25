@@ -5,6 +5,14 @@ public class User {
     private String psw;
     private String token;
 
+    public User(){}
+
+    public User(String username, String psw, String token) {
+        this.username = username;
+        this.psw = psw;
+        this.token = token;
+    }
+
     public String getUsername() {
         return username;
     }

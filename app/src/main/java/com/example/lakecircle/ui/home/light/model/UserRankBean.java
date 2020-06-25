@@ -5,6 +5,7 @@ import java.util.List;
 
 public class UserRankBean {
 
+//
     /**
      * avatar : string
      * star_num : 0

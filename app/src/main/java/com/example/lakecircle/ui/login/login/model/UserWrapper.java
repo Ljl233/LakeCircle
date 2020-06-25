@@ -30,6 +30,8 @@ public class UserWrapper {
 
     public void setUser(User user) {
         this.user = user;
+        String jsonString = JSONObject.toJSONString(user);
+        spUtils.put("User", jsonString, false);
     }
 
     public String getToken() {

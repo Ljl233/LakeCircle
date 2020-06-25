@@ -71,8 +71,12 @@ public class RankFragment extends Fragment {
 
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new UserRankFragment());
-        fragments.add(new LakeRankFragment());
+        UserRankFragment userRankFragment = new UserRankFragment();
+        userRankFragment.setContext(this.getContext());
+        LakeRankFragment lakeRankFragment = new LakeRankFragment();
+        lakeRankFragment.setContext(this.getContext());
+        fragments.add(userRankFragment);
+        fragments.add(lakeRankFragment);
         return fragments;
     }
 

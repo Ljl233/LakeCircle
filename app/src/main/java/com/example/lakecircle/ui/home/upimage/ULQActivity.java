@@ -2,6 +2,7 @@ package com.example.lakecircle.ui.home.upimage;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -9,25 +10,29 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.commonUtils.BaseResponseModel;
+import com.example.lakecircle.commonUtils.NetUtil;
 import com.facebook.common.util.UriUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -35,6 +40,15 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class ULQActivity extends AppCompatActivity {
 
@@ -52,6 +66,10 @@ public class ULQActivity extends AppCompatActivity {
     private final static int REQUEST_ALBUM = 3;
     private final static int REQUEST_CAMERA = 4;
     private String mCurrentPhoto = "";
+    private EditText test_edit;
+    private Uri uri;
+    private List<String> mPictureUrls;
+    private Object Exception;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +82,12 @@ public class ULQActivity extends AppCompatActivity {
         mTvHint = findViewById(R.id.tv_ulq);
         mBtSubmit = findViewById(R.id.ulq_submit);
         mBtSubmit.setOnClickListener(v -> {
-            Toast.makeText(this, "提交成功", Toast.LENGTH_SHORT).show();
-            finish();
+            getPictureUrl();
         });
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
         });
-        EditText test_edit = findViewById(R.id.test_edit);
+        test_edit = findViewById(R.id.test_edit);
     }
 
     private void showPopupWindow() {
@@ -174,11 +191,11 @@ public class ULQActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             mTvHint.setText("");
             if (requestCode == REQUEST_ALBUM) {
-                Uri uri = data.getData();
+                uri = data.getData();
                 mDraweeULQ.setImageURI(uri);
             }
             if (requestCode == REQUEST_CAMERA) {
-                Uri uri = new Uri.Builder()
+                uri = new Uri.Builder()
                         .scheme(UriUtil.LOCAL_FILE_SCHEME)
                         .path(mCurrentPhoto)
                         .build();
@@ -196,4 +213,127 @@ public class ULQActivity extends AppCompatActivity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
+
+    private String getDescription() {
+        return test_edit.getText().toString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void getPictureUrl() {
+        String filepath = uriToPath(uri);
+
+        File picture = new File(filepath);
+        Log.e("uri=>", uri.toString());
+        Log.e("file=>", picture.toString());
+        RequestBody requestFile = RequestBody.create(
+                MediaType.parse("multipart/form-data"), picture);
+
+        MultipartBody.Part data = MultipartBody.Part.createFormData(
+                "picture", picture.getName(), requestFile);
+
+        NetUtil.getInstance().getApi().uploadImage(data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseResponseModel<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseResponseModel<String> urlResponseBaseResponseModel) {
+                        mPictureUrls = urlResponseBaseResponseModel.getData();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(ULQActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        submit(mPictureUrls);
+                    }
+                });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private String uriToPath(Uri u) {
+        String filePath = null;
+
+        if (u != null && "content".equals(u.getScheme())) {
+           Log.e("ulq:","uri="+uri);
+
+           if (DocumentsContract.isDocumentUri(this,uri)){
+               String docId = DocumentsContract.getDocumentId(uri);
+               if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                   Log.d("ulq", uri.toString());
+                   String id = docId.split(":")[1];
+                   String selection = MediaStore.Images.Media._ID + "=" + id;
+                   filePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+               } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                   Log.d("ulq", uri.toString());
+                   Uri contentUri = ContentUris.withAppendedId(
+                           Uri.parse("content://downloads/public_downloads"),
+                           Long.valueOf(docId));
+                   filePath = getImagePath(contentUri, null);
+               }
+           } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+               Log.d("ulq", "content: " + uri.toString());
+               filePath = getImagePath(uri, null);
+           }
+
+
+        } else {
+            filePath = u.getPath();
+        }
+
+        return filePath;
+    }
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+
+            cursor.close();
+        }
+        return path;
+    }
+
+    private void submit(List<String> urls) {
+        QuestionBean question = new QuestionBean();
+
+        question.setContent(getDescription());
+        question.setLocation(" ");
+
+        question.setPicture_url(urls);
+
+        NetUtil.getInstance().getApi().newQuestion(question)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseResponseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(BaseResponseModel baseResponseModel) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(ULQActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Toast.makeText(ULQActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+    }
+
 }

@@ -54,35 +54,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
             <TextView
-                android:id="@+id/tv_time_info_edit"
+                android:id="@+id/tv_intro_info_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="营业时间"
+                android:text="店铺介绍"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_info_edit" />
 
             <EditText
-                android:id="@+id/et_time_info_edit"
+                android:id="@+id/et_intro_info_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"
                 android:gravity="left"
+                android:hint="店铺的简短介绍"
                 android:lines="3"
                 android:maxLines="3"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="3dp"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_time_info_edit"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_intro_info_edit" />
 
             <TextView
                 android:id="@+id/tv_location_info_edit"
@@ -92,8 +91,8 @@
                 android:text="地址"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@id/et_time_info_edit"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_intro_info_edit" />
 
             <EditText
                 android:id="@+id/et_location_info_edit"
@@ -102,22 +101,82 @@
                 android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"
                 android:gravity="left"
-                android:lines="3"
-                android:maxLines="3"
+                android:hint="店铺的详细地址"
+                android:lines="1"
+                android:maxLines="2"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="3dp"
                 android:textColor="#000000"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/tv_location_info_edit"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_location_info_edit" />
+
+            <TextView
+                android:id="@+id/tv_near_info_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="附近河湖"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_location_info_edit" />
+
+            <EditText
+                android:id="@+id/et_near_info_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/background_single_line_edit_text"
+                android:gravity="left"
+                android:hint="店铺附近的河湖名"
+                android:lines="1"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="3dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_near_info_edit" />
+
+            <TextView
+                android:id="@+id/tv_tel_info_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="联系方式"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_near_info_edit" />
+
+            <EditText
+                android:id="@+id/et_tel_info_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/background_single_line_edit_text"
+                android:gravity="left"
+                android:hint="店铺的联系方式"
+                android:inputType="number"
+                android:lines="1"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="3dp"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_tel_info_edit" />
 
             <TextView
                 android:id="@+id/tv_tip_info_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:text="上传商铺图片"
+                android:text="上传店铺图片"
                 android:textColor="#1C1C1C"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_info_edit"

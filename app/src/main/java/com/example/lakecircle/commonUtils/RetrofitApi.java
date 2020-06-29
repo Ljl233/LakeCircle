@@ -22,6 +22,8 @@ import com.example.lakecircle.ui.mine.govern.activitypost.ActivityPostBean;
 import com.example.lakecircle.ui.mine.govern.problemview.ProblemListResponseBean;
 import com.example.lakecircle.ui.mine.govern.problemview.ProblemResponse;
 import com.example.lakecircle.ui.mine.govern.problemview.SolveProblemPostBean;
+import com.example.lakecircle.ui.mine.mer.InfoPostBean;
+import com.example.lakecircle.ui.mine.mer.SpecialPostBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -109,5 +111,11 @@ public interface RetrofitApi {
 
     @GET("http://pinpin.muxixyz.com/api/v1/coupon/list")
     Observable<BaseResponseModel<Coupon>> getCoupons(@Query("page") String page, @Query("limit") String limit);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/business/info")
+    Observable<SimpleResponse> postMerInfo(@Body InfoPostBean infoPostBean);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/business/special")
+    Observable<SimpleResponse> postMerSpecial(@Body SpecialPostBean specialPostBean);
 
 }

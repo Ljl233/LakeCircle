@@ -28,7 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.commonUtils.FileUtils;
+import com.example.lakecircle.commonUtils.ImageUtils;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
 import com.example.lakecircle.ui.mine.SimpleResponse;
@@ -54,6 +54,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import top.zibin.luban.OnCompressListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -104,7 +105,7 @@ public class ActivityPostFragment extends Fragment {
 
         mPostBtn.setOnClickListener(v -> {
             if (checkNonNull())
-                postActivity();
+                compressImage();
             else {
                 Objects.requireNonNull(getContext()).setTheme(R.style.QMUITheme);
                 QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
@@ -209,9 +210,29 @@ public class ActivityPostFragment extends Fragment {
         startActivityForResult(takePictureIntent, CAM_CODE);
     }
 
+    private void compressImage( ) {
+        String filepath = ImageUtils.uriToPath(mPhotoUri, getContext(), getActivity().getContentResolver());
+        File originalImage = new File(filepath);
+        String targetDir = originalImage.getParentFile().getAbsolutePath();
+        ImageUtils.compressImage(getContext(), originalImage, targetDir, new OnCompressListener() {
+            @Override
+            public void onStart() {Log.e("ActivityPostFragment", "start compress image"); }
 
-    private void postActivity( ) {
-        File file = FileUtils.getFile(getContext(), mPhotoUri);
+            @Override
+            public void onSuccess(File file) {
+                postActivity(file);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                Log.e("ActivityPostFragment", "compress image fail");
+                showError("图片压缩失败");
+            }
+        });
+    }
+
+    private void postActivity(File file) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 

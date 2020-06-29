@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.commonUtils.ImageUtils;
+import com.example.lakecircle.commonUtils.NetUtil;
+import com.example.lakecircle.ui.home.upimage.UrlResponse;
+import com.example.lakecircle.ui.mine.SimpleResponse;
 import com.facebook.common.util.UriUtil;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
@@ -39,6 +44,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import top.zibin.luban.OnCompressListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -54,7 +70,7 @@ public class InfoEditFragment extends Fragment {
     private Button mPostBtn;
     private ImageView mPicIv;
     private TextView mPicTv;
-    private EditText mTimeEt, mLocationEt;
+    private EditText mIntroEt, mLocationEt, mNearEt, mTelEt;
 
     @Nullable
     @Override
@@ -63,8 +79,10 @@ public class InfoEditFragment extends Fragment {
 
         mToolbar = view.findViewById(R.id.tb_activity_post);
         mPostBtn = view.findViewById(R.id.btn_activity_post);
-        mTimeEt = view.findViewById(R.id.et_time_info_edit);
+        mIntroEt = view.findViewById(R.id.et_intro_info_edit);
         mLocationEt = view.findViewById(R.id.et_location_info_edit);
+        mNearEt = view.findViewById(R.id.et_near_info_edit);
+        mTelEt = view.findViewById(R.id.et_tel_info_edit);
         mPicIv = view.findViewById(R.id.iv_info_edit);
         mPicTv = view.findViewById(R.id.tv_tip_info_edit);
 
@@ -77,7 +95,7 @@ public class InfoEditFragment extends Fragment {
 
         mPostBtn.setOnClickListener(v -> {
             if (checkNonNull())
-                postInfo();
+                compressImage();
             else {
                 Objects.requireNonNull(getContext()).setTheme(R.style.QMUITheme);
                 QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
@@ -181,57 +199,75 @@ public class InfoEditFragment extends Fragment {
         startActivityForResult(takePictureIntent, CAM_CODE);
     }
 
+    private void compressImage( ) {
+        String filepath = ImageUtils.uriToPath(mPhotoUri, getContext(), getActivity().getContentResolver());
+        File originalImage = new File(filepath);
+        String targetDir = originalImage.getParentFile().getAbsolutePath();
+        ImageUtils.compressImage(getContext(), originalImage, targetDir, new OnCompressListener() {
+            @Override
+            public void onStart() {Log.e("InfoEditFragment", "start compress image"); }
 
-    private void postInfo( ) {
-//        File file = FileUtils.getFile(getContext(), mPhotoUri);
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-//
-//        NetUtil.getInstance().getApi().uploadImage(body)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnNext(stringResponse -> Log.e("ActivityPostFragment", "Image post Success"))
-//                .observeOn(Schedulers.io())
-//                .flatMap((Function<BaseResponseModel<String>, Observable<Response<Void>>>) stringBaseResponseModel -> {
-//                    String detail = mIntroEt.getText().toString();
-//                    String duration = mTimeEt.getText().toString();
-//                    String kind = mTypeEt.getText().toString();
-//                    String location = mPlaceEt.getText().toString();
-//                    String name = mNameEt.getText().toString();
-//                    String picture_url = stringBaseResponseModel.getData().get(0);
-//                    int reward = Integer.parseInt(mPointEt.getText().toString());
-//                    int user_num = Integer.parseInt(mPnEt.getText().toString());
-//                    InfoPostBean bean = new InfoPostBean(detail, duration, kind, location, name, picture_url, reward, user_num);
-//                    return NetUtil.getInstance().getApi().postActivity(bean);
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Response<Void>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) { }
-//
-//                    @Override
-//                    public void onNext(Response<Void> voidResponse) {
-//                        if ( voidResponse.code() == 200 ) {
-//                            showSuccess();
-//                            onComplete();
-//                        } else
-//                            onError(new Throwable("Code is not 200"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        Log.e("ActivityPostFragment", "post fail");
-//                        showError("上传失败");
-//                    }
-//
-//                    @Override
-//                    public void onComplete() { }
-//                });
+            @Override
+            public void onSuccess(File file) {
+                postInfo(file);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                Log.e("InfoEditFragment", "compress image fail");
+                showError("图片压缩失败");
+            }
+        });
+    }
+
+    private void postInfo(File file) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+
+        NetUtil.getInstance().getApi().uploadImage(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(stringResponse -> Log.e("InfoEditFragment", "Image post Success"))
+                .observeOn(Schedulers.io())
+                .flatMap((Function<UrlResponse, Observable<SimpleResponse>>) urlResponse -> {
+                    String intro = mIntroEt.getText().toString();
+                    String address = mLocationEt.getText().toString();
+                    String near = mNearEt.getText().toString();
+                    String tel = mTelEt.getText().toString();
+                    String picture_url = urlResponse.getData().getUrl();
+                    InfoPostBean bean = new InfoPostBean(address, picture_url, intro, near, tel);
+                    return NetUtil.getInstance().getApi().postMerInfo(bean);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SimpleResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) { }
+
+                    @Override
+                    public void onNext(SimpleResponse simpleResponse) {
+                        if ( !simpleResponse.getMessage().equals("OK") )
+                            onError(new Throwable());
+                        showSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Log.e("ActivityPostFragment", "post fail");
+                        showError("上传失败");
+                    }
+
+                    @Override
+                    public void onComplete() { }
+                });
     }
 
     private boolean checkNonNull() {
-        return mPhotoUri != null && mTimeEt.getText().toString().length() != 0 && mLocationEt.getText().toString().length() != 0;
+        return mPhotoUri != null && mIntroEt.getText().toString().length() != 0
+                && mLocationEt.getText().toString().length() != 0
+                && mNearEt.getText().toString().length() != 0
+                && mTelEt.getText().toString().length() != 0;
     }
 
     private void showSuccess() {
@@ -261,7 +297,6 @@ public class InfoEditFragment extends Fragment {
             Objects.requireNonNull(getContext()).setTheme(R.style.AppTheme);
         }, 1500);
     }
-
 
     @Override
     public void onDestroy() {

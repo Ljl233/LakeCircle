@@ -50,6 +50,8 @@
             android:name=".ui.mainControl.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
+        <activity android:name=".ui.circle.PostCircleActivity"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.lakecircle.fileprovider"

@@ -27,10 +27,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        if (UserWrapper.getInstance().user != null) {
-//            startActivity(new Intent(this, MainActivity.class));
-//            this.finish();
-//        }
+        if (UserWrapper.getInstance().user != null) {
+            startActivity(new Intent(this, MainActivity.class));
+            this.finish();
+        }
         mPresenter = new LoginPresenter(this);
 
         initView();

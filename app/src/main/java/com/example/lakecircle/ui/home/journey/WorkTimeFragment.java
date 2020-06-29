@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.lakecircle.R;
 
+// 河湖行窗口
+@Deprecated
 public class WorkTimeFragment extends Fragment {
     @Nullable
     @Override

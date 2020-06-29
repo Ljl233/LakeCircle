@@ -61,6 +61,12 @@
             android:id="@+id/action_light_dest_to_rankFragment"
             app:destination="@id/rank_dest" />
     </fragment>
+    <fragment android:name="com.example.lakecircle.ui.home.realtime.RealTimeFragment"
+        android:id="@+id/realtime_dest"
+        android:label="实时河湖"
+        tools:layout="@layout/fragment_realtime">
+
+    </fragment>
     <fragment
         android:id="@+id/rank_dest"
         android:name="com.example.lakecircle.ui.home.light.RankFragment"

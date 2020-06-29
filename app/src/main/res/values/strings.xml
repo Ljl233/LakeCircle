@@ -94,5 +94,6 @@
     <string name="distance">距离(km)</string>
     <string name="grades">当前所获积分</string>
     <string name="user_name">用户名</string>
+    <string name="lake_realtime">实时河湖</string>
 
 </resources>

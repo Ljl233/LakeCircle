@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
 
         //显示定位蓝点
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(1000);
+        myLocationStyle.interval(100000);
         aMap.setMyLocationStyle(myLocationStyle);
 //        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
@@ -215,7 +215,13 @@ public class HomeFragment extends Fragment {
         });
 
         mTvTimeLake.setOnClickListener(v -> {
-
+            NavOptions options = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.hide_out)
+                    .setPopEnterAnim(R.anim.show_in)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+            mNavController.navigate(R.id.realtime_dest, null, options);
         });
 
         mTvTravel.setOnClickListener(v -> {

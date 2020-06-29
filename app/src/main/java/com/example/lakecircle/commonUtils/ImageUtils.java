@@ -10,21 +10,15 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
-import com.example.lakecircle.ui.home.upimage.ULQActivity;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;

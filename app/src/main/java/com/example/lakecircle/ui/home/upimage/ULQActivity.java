@@ -76,6 +76,7 @@ public class ULQActivity extends AppCompatActivity {
     private EditText test_edit;
     private Uri uri;
     private String mPictureUrl;
+    private boolean havePicture = false;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -89,8 +90,13 @@ public class ULQActivity extends AppCompatActivity {
         mTvHint = findViewById(R.id.tv_ulq);
         mBtSubmit = findViewById(R.id.ulq_submit);
         mBtSubmit.setOnClickListener(v -> {
-            getPictureUrl();
-            setUploadStatus();
+            if (havePicture) {
+                setUploadStatus();
+                getPictureUrl();
+            } else {
+                finish();
+                Toast.makeText(this, "请先上传图片", Toast.LENGTH_SHORT).show();
+            }
         });
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
@@ -210,6 +216,7 @@ public class ULQActivity extends AppCompatActivity {
                 mDraweeULQ.setImageURI(uri);
                 galleryAddPic();
             }
+            havePicture = true;
         }
     }
 
@@ -248,7 +255,7 @@ public class ULQActivity extends AppCompatActivity {
             @Override
             public void onSuccess(File file) {
                 // TODO 压缩成功后调用，返回压缩后的图片文件
-                ImageUtils.uploadImage(file,new Observer<UrlResponse>() {
+                ImageUtils.uploadImage(file, new Observer<UrlResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 

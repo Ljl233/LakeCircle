@@ -37,4 +37,10 @@ public class QuestionBean {
     public void setPicture_url(List<String> picture_url) {
         this.picture_url = picture_url;
     }
+
+    public void setUrls(List<UrlResponse> urls) {
+        for (UrlResponse url : urls) {
+            picture_url.add(url.getData().getUrl());
+        }
+    }
 }

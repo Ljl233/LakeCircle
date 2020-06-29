@@ -18,7 +18,7 @@ public class NetUtil {
         gson = new Gson();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY);
+                .setLevel(HttpLoggingInterceptor.Level.BASIC);
 
         client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)

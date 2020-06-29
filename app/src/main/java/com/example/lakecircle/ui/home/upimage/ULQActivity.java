@@ -39,6 +39,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,9 +69,9 @@ public class ULQActivity extends AppCompatActivity {
     private String mCurrentPhoto = "";
     private EditText test_edit;
     private Uri uri;
-    private List<String> mPictureUrls;
-    private Object Exception;
+    private String mPictureUrl;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,7 @@ public class ULQActivity extends AppCompatActivity {
         mBtSubmit = findViewById(R.id.ulq_submit);
         mBtSubmit.setOnClickListener(v -> {
             getPictureUrl();
+            setUploadStatus();
         });
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
@@ -229,30 +231,40 @@ public class ULQActivity extends AppCompatActivity {
                 MediaType.parse("multipart/form-data"), picture);
 
         MultipartBody.Part data = MultipartBody.Part.createFormData(
-                "picture", picture.getName(), requestFile);
+                "image", picture.getName(), requestFile);
 
         NetUtil.getInstance().getApi().uploadImage(data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponseModel<String>>() {
+                .subscribe(new Observer<UrlResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(BaseResponseModel<String> urlResponseBaseResponseModel) {
-                        mPictureUrls = urlResponseBaseResponseModel.getData();
+                    public void onNext(UrlResponse response) {
+                        mPictureUrl = response.getData().getUrl();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(ULQActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ULQActivity.this, "图片上传失败", Toast.LENGTH_SHORT).show();
+                        mBtSubmit.setText("上传");
+//                        Log.e("ulq:", e.getMessage());
+//                        Log.e("ulq:", e.toString());
+//                        e.printStackTrace();
+//                        Log.e("ulq:", "null");
                     }
 
                     @Override
                     public void onComplete() {
-                        submit(mPictureUrls);
+                        List<UrlResponse> urlResponseList = new ArrayList<>();
+                        UrlResponse urlResponse = new UrlResponse();
+                        UrlResponse.DataBean dataBean = new UrlResponse.DataBean();
+                        dataBean.setUrl(mPictureUrl);
+                        urlResponse.setData(dataBean);
+                        submit(urlResponseList);
                     }
                 });
     }
@@ -262,26 +274,26 @@ public class ULQActivity extends AppCompatActivity {
         String filePath = null;
 
         if (u != null && "content".equals(u.getScheme())) {
-           Log.e("ulq:","uri="+uri);
+            Log.e("ulq:", "uri=" + uri);
 
-           if (DocumentsContract.isDocumentUri(this,uri)){
-               String docId = DocumentsContract.getDocumentId(uri);
-               if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                   Log.d("ulq", uri.toString());
-                   String id = docId.split(":")[1];
-                   String selection = MediaStore.Images.Media._ID + "=" + id;
-                   filePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-               } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                   Log.d("ulq", uri.toString());
-                   Uri contentUri = ContentUris.withAppendedId(
-                           Uri.parse("content://downloads/public_downloads"),
-                           Long.valueOf(docId));
-                   filePath = getImagePath(contentUri, null);
-               }
-           } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-               Log.d("ulq", "content: " + uri.toString());
-               filePath = getImagePath(uri, null);
-           }
+            if (DocumentsContract.isDocumentUri(this, uri)) {
+                String docId = DocumentsContract.getDocumentId(uri);
+                if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                    Log.d("ulq", uri.toString());
+                    String id = docId.split(":")[1];
+                    String selection = MediaStore.Images.Media._ID + "=" + id;
+                    filePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+                } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                    Log.d("ulq", uri.toString());
+                    Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"),
+                            Long.valueOf(docId));
+                    filePath = getImagePath(contentUri, null);
+                }
+            } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+                Log.d("ulq", "content: " + uri.toString());
+                filePath = getImagePath(uri, null);
+            }
 
 
         } else {
@@ -290,6 +302,7 @@ public class ULQActivity extends AppCompatActivity {
 
         return filePath;
     }
+
     private String getImagePath(Uri uri, String selection) {
         String path = null;
         Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
@@ -303,29 +316,34 @@ public class ULQActivity extends AppCompatActivity {
         return path;
     }
 
-    private void submit(List<String> urls) {
+    private void submit(List<UrlResponse> urls) {
         QuestionBean question = new QuestionBean();
 
         question.setContent(getDescription());
         question.setLocation(" ");
 
-        question.setPicture_url(urls);
+        question.setUrls(urls);
 
         NetUtil.getInstance().getApi().newQuestion(question)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<BaseResponseModel>() {
+                .subscribe(new Observer<QuestionResponse>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                     }
 
                     @Override
-                    public void onNext(BaseResponseModel baseResponseModel) {
+                    public void onNext(QuestionResponse response) {
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("ulq:", e.getMessage());
+                        Log.e("ulq:", e.toString());
+                        e.printStackTrace();
+                        Log.e("ulq:", "null");
                         Toast.makeText(ULQActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
+                        mBtSubmit.setText("上传");
                     }
 
                     @Override
@@ -334,6 +352,10 @@ public class ULQActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    private void setUploadStatus() {
+        mBtSubmit.setText("上传中...");
     }
 
 }

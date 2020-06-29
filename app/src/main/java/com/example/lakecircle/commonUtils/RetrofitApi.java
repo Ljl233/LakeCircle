@@ -3,6 +3,7 @@ package com.example.lakecircle.commonUtils;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
 import com.example.lakecircle.ui.home.upimage.QuestionBean;
+import com.example.lakecircle.ui.home.upimage.QuestionResponse;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
 import com.example.lakecircle.ui.login.login.model.LoginResponse;
 import com.example.lakecircle.ui.login.login.model.UserBean;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -36,11 +38,11 @@ public interface RetrofitApi {
 
     //上传问题
     @POST("http://pinpin.muxixyz.com/api/v1/question/new")
-    Observable<BaseResponseModel> newQuestion(@Body QuestionBean question);
+    Observable<QuestionResponse> newQuestion(@Body QuestionBean question);
 
     //图片上传
     @Multipart
     @POST("http://pinpin.muxixyz.com/api/v1/upload/image")
-    Observable<BaseResponseModel<String>> uploadImage(@Part MultipartBody.Part file);
+    Observable<UrlResponse> uploadImage(@Part() MultipartBody.Part file);
 
 }

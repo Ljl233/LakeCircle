@@ -1,5 +1,7 @@
 package com.example.lakecircle.commonUtils;
 
+import com.example.lakecircle.ui.circle.Circle;
+import com.example.lakecircle.ui.circle.PostCircleBean;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
@@ -117,5 +119,11 @@ public interface RetrofitApi {
 
     @POST("http://pinpin.muxixyz.com/api/v1/business/special")
     Observable<SimpleResponse> postMerSpecial(@Body SpecialPostBean specialPostBean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/moment/list")
+    Observable<BaseResponseModel<Circle>> getCircles(@Query("page") String page, @Query("limit") String limit);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/moment")
+    Observable<SimpleResponse> postCircle(@Body PostCircleBean postCircleBean);
 
 }

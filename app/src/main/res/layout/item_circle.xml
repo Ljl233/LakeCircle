@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
+<!--
     <com.example.lakecircle.ui.mine.view.AvatarView
         android:id="@+id/avatar_circle_item"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,45 +25,60 @@
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/avatar_circle_item"
         app:layout_constraintTop_toTopOf="@+id/avatar_circle_item" />
-
+-->
     <TextView
         android:id="@+id/tv_time_circle_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="15dp"
         android:text="2020/01/01 00:00:00"
         android:textColor="#4D4D4D"
         android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_name_circle_item"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name_circle_item" />
+        app:layout_constraintStart_toStartOf="@+id/tv_content_circle_item"
+        app:layout_constraintTop_toBottomOf="@+id/sdv_pic_circle_item" />
 
     <TextView
         android:id="@+id/tv_content_circle_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
-        android:textSize="18sp"
         android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatar_circle_item" />
 
-    <com.example.lakecircle.ui.circle.ImagesLayout
-        android:id="@+id/il_circle_item"
+    <!--   <com.example.lakecircle.ui.circle.ImagesLayout
+           android:id="@+id/il_circle_item"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_marginEnd="10dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginTop="10dp"
+           app:layout_constraintHorizontal_bias="0.0"
+           app:layout_constraintStart_toStartOf="@id/tv_content_circle_item"
+           app:layout_constraintEnd_toEndOf="@+id/tv_content_circle_item"
+           app:layout_constraintTop_toBottomOf="@+id/tv_content_circle_item"/>-->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv_pic_circle_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_content_circle_item"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/tv_content_circle_item"
-        app:layout_constraintTop_toBottomOf="@+id/tv_content_circle_item" />
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_content_circle_item" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="#D7D7D7"
+        app:layout_constraintTop_toBottomOf="@id/tv_time_circle_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

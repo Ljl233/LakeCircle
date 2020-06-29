@@ -21,12 +21,31 @@
             app:destination="@id/activities_dest" />
     </fragment>
 
+    <!--河湖圈-->
     <fragment
         android:id="@+id/circle_dest"
         android:name="com.example.lakecircle.ui.circle.CircleFragment"
+        tools:layout="@layout/fragment_circle"
         android:label="circle">
+        <action
+            android:id="@+id/action_photo_view"
+            app:destination="@id/photo_view_dest"/>
+        <action
+            android:id="@+id/action_post_circle"
+            app:destination="@id/post_circle_dest"/>
 
     </fragment>
+
+    <activity
+        android:id="@+id/photo_view_dest"
+        android:name="com.example.lakecircle.ui.circle.PhotoViewActivity"
+        android:label="circle_photo_view"
+        tools:layout="@layout/activity_photo_view" />
+
+    <activity
+        android:id="@+id/post_circle_dest"
+        android:name="com.example.lakecircle.ui.circle.PostCircleActivity"
+        tools:layout="@layout/activity_post_circle"/>
 
     <fragment
         android:id="@+id/journey_dest"
@@ -87,9 +106,7 @@
         android:label="activities_apply"
         tools:layout="@layout/fragment_activities_apply" />
 
-
-
-
+    <!--我的-->
     <fragment
         android:id="@+id/mine_dest"
         android:name="com.example.lakecircle.ui.mine.MineFragment"

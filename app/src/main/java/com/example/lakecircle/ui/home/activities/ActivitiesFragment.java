@@ -21,7 +21,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.ui.mine.view.govern.ProblemListFragment;
+import com.example.lakecircle.ui.mine.govern.problemview.ProblemListFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;

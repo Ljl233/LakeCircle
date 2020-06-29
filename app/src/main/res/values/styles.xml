@@ -15,4 +15,11 @@
     <style name="TextAppearance.Design.Tab" parent="TextAppearance.AppCompat.Button" tools:ignore="PrivateResource">
         <item name="android:textSize">20sp</item>
     </style>
+
+    <!--使用QMUI需要的主题-->
+    <style name="QMUITheme" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

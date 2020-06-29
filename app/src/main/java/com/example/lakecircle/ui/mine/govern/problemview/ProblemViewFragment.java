@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.mine.view.govern;
+package com.example.lakecircle.ui.mine.govern.problemview;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -17,9 +17,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
 import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProblemViewFragment extends Fragment {
 
@@ -60,9 +57,9 @@ public class ProblemViewFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if ( position == 0 )
-                return new ProblemListFragment(1);
+                return ProblemListFragment.newInstance(1);
             else
-                return new ProblemListFragment(0);
+                return ProblemListFragment.newInstance(0);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.mine.view;
+package com.example.lakecircle.ui.mine;
 
 import android.content.Context;
 import android.util.AttributeSet;

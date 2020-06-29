@@ -51,9 +51,11 @@
     <string name="govern_cer">政府认证</string>
     <string name="govern_entrance">河湖长入口</string>
     <string name="mer_entrance">商家入口</string>
-    <string name="mine_coupon">我的优惠劵</string>
+    <string name="my_coupon">我的优惠劵</string>
     <string name="contact_us">联系我们</string>
     <string name="logoff">退出登录</string>
+
+    <string name="coupon_amount">%1$d元</string>
 
     <!--我的：认证-->
     <string name="mine_cer">申请认证</string>
@@ -74,6 +76,9 @@
     <!--我的：入口-->
     <string name="activity_post">发布活动</string>
     <string name="problem_view">查看问题图片</string>
+    <string name="solve_problem">解决问题</string>
+    <string name="special_post">发布特色</string>
+    <string name="edit_info">编辑信息</string>
 
     <!--发布活动-->
     <string name="activity_name">活动名称</string>

@@ -11,15 +11,23 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.commonUtils.NetUtil;
+import com.example.lakecircle.commonUtils.SPUtils;
 import com.example.lakecircle.ui.circle.CircleFragment;
 import com.example.lakecircle.ui.home.home.HomeFragment;
 import com.example.lakecircle.ui.home.journey.JourneyFragment;
-import com.example.lakecircle.ui.mine.view.MineFragment;
+import com.example.lakecircle.ui.home.light.model.UserInfoBean;
+import com.example.lakecircle.ui.mine.MineFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
+        getUserInfo();
 
         //status bar
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -105,5 +114,33 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new MineFragment());
 
         return fragments;
+    }
+
+    private void getUserInfo() {
+        SPUtils spUtils = SPUtils.getInstance("userInfo");
+        NetUtil.getInstance().getApi().getUserInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<UserInfoBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) { }
+
+                    @Override
+                    public void onNext(UserInfoBean userInfoBean) {
+                        spUtils.put("avatar", userInfoBean.getData().getAvatar());
+                        spUtils.put("kind", userInfoBean.getData().getKind());
+                        spUtils.put("username", userInfoBean.getData().getUsername());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

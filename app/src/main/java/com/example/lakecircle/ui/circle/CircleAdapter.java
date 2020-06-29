@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.ui.mine.view.AvatarView;
+import com.example.lakecircle.ui.mine.AvatarView;
 
 import java.util.List;
 

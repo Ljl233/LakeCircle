@@ -1,4 +1,4 @@
-package com.example.lakecircle.ui.mine.view.entrance;
+package com.example.lakecircle.ui.mine.entrance;
 
 import android.os.Build;
 import android.os.Bundle;

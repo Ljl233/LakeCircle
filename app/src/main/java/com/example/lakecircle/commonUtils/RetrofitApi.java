@@ -13,17 +13,25 @@ import com.example.lakecircle.ui.home.upimage.UrlResponse;
 import com.example.lakecircle.ui.login.login.model.LoginResponse;
 import com.example.lakecircle.ui.login.login.model.UserBean;
 import com.example.lakecircle.ui.login.logup.model.LogupRequireBody;
-
-import java.util.List;
+import com.example.lakecircle.ui.mine.MineFragment;
+import com.example.lakecircle.ui.mine.SimpleResponse;
+import com.example.lakecircle.ui.mine.certificate.GovCerPostBean;
+import com.example.lakecircle.ui.mine.certificate.MerCerPostBean;
+import com.example.lakecircle.ui.mine.coupon.Coupon;
+import com.example.lakecircle.ui.mine.govern.activitypost.ActivityPostBean;
+import com.example.lakecircle.ui.mine.govern.problemview.ProblemListResponseBean;
+import com.example.lakecircle.ui.mine.govern.problemview.ProblemResponse;
+import com.example.lakecircle.ui.mine.govern.problemview.SolveProblemPostBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RetrofitApi {
 
@@ -64,5 +72,42 @@ public interface RetrofitApi {
     //河湖信息
     @GET("http://pinpin.muxixyz.com/api/v1/lake/intro/list")
     Observable<BaseResponseModel<LakeIntroBean>> getAllLakeIntro();
+
+    //发布活动
+    @POST("http://pinpin.muxixyz.com/api/v1/activity")
+    Observable<SimpleResponse> postActivity(@Body ActivityPostBean activityPostBean);
+
+    //提交商家认证
+    @POST("http://pinpin.muxixyz.com/api/v1/auth/business")
+    Observable<SimpleResponse> postMerCer(@Body MerCerPostBean merCerPostBean);
+
+    //提交政府认证
+    @POST("http://pinpin.muxixyz.com/api/v1/auth/government")
+    Observable<SimpleResponse> postGovCer(@Body GovCerPostBean govCerPostBean);
+
+    //获取已解决的问题列表
+    ///todo fix
+    @GET("http://pinpin.muxixyz.com/api/v1/question/solved")
+    Observable<ProblemListResponseBean> getSolvedProblems(@Query("page") String page, @Query("limit") String limit);
+
+    //获取待解决的问题列表
+    ///todo fix
+    @GET("http://pinpin.muxixyz.com/api/v1/question/unsolved")
+    Observable<ProblemListResponseBean> getUnsolvedProblems(@Query("page") String page, @Query("limit") String limit);
+
+    //获取一个问题的详细信息
+    @GET("http://pinpin.muxixyz.com/api/v1/question/info/{id}")
+    Observable<ProblemResponse> getProblem(@Path("id") int id);
+
+    //解决一个问题
+    @POST("http://pinpin.muxixyz.com/api/v1/question/solve")
+    Observable<SimpleResponse> postSolution(@Body SolveProblemPostBean solveProblemPostBean);
+
+    //提交一个新的头像
+    @POST("http://pinpin.muxixyz.com/api/v1/user/avatar")
+    Observable<SimpleResponse> postAvatar(@Body MineFragment.AvatarPostBean bean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/coupon/list")
+    Observable<BaseResponseModel<Coupon>> getCoupons(@Query("page") String page, @Query("limit") String limit);
 
 }

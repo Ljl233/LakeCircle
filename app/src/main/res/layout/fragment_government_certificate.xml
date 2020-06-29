@@ -108,7 +108,7 @@
 
             <EditText
                 android:id="@+id/et_phone_govern_cer"
-                android:layout_width="371dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/background_single_line_edit_text"

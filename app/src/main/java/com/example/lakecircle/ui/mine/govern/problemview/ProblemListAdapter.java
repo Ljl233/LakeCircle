@@ -148,6 +148,4 @@ public class ProblemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-
-
 }

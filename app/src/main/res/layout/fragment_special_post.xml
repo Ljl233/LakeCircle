@@ -49,7 +49,7 @@
                 app:layout_constraintHorizontal_bias="0.50"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+<!--
             <TextView
                 android:id="@+id/tv_name_special_post"
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_name_special_post"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name_special_post" />
-
+-->
             <TextView
                 android:id="@+id/tv_intro_special_post"
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_name_special_post" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_special_post" />
 
             <EditText
                 android:id="@+id/et_intro_special_post"

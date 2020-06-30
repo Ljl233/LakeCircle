@@ -1,5 +1,7 @@
 package com.example.lakecircle.commonUtils;
 
+import com.example.lakecircle.ui.circle.Circle;
+import com.example.lakecircle.ui.circle.PostCircleBean;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
@@ -23,6 +25,8 @@ import com.example.lakecircle.ui.mine.govern.activitypost.ActivityPostBean;
 import com.example.lakecircle.ui.mine.govern.problemview.ProblemListResponseBean;
 import com.example.lakecircle.ui.mine.govern.problemview.ProblemResponse;
 import com.example.lakecircle.ui.mine.govern.problemview.SolveProblemPostBean;
+import com.example.lakecircle.ui.mine.mer.InfoPostBean;
+import com.example.lakecircle.ui.mine.mer.SpecialPostBean;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -118,5 +122,17 @@ public interface RetrofitApi {
 
     @GET("http://pinpin.muxixyz.com/api/v1/coupon/list")
     Observable<BaseResponseModel<Coupon>> getCoupons(@Query("page") String page, @Query("limit") String limit);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/business/info")
+    Observable<SimpleResponse> postMerInfo(@Body InfoPostBean infoPostBean);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/business/special")
+    Observable<SimpleResponse> postMerSpecial(@Body SpecialPostBean specialPostBean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/moment/list")
+    Observable<BaseResponseModel<Circle>> getCircles(@Query("page") String page, @Query("limit") String limit);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/moment")
+    Observable<SimpleResponse> postCircle(@Body PostCircleBean postCircleBean);
 
 }

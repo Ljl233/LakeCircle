@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.lakecircle.R;
+import com.example.lakecircle.commonUtils.ImageUtils;
+import com.example.lakecircle.commonUtils.NetUtil;
+import com.example.lakecircle.ui.home.upimage.UrlResponse;
+import com.example.lakecircle.ui.mine.SimpleResponse;
 import com.facebook.common.util.UriUtil;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
@@ -39,6 +44,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import top.zibin.luban.OnCompressListener;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -55,7 +71,8 @@ public class SpecialPostFragment extends Fragment {
     private ImageView mPicIv;
     private Button mPostBtn;
     private TextView mPicTv;
-    private EditText mNameEt, mIntroEt;
+    //private EditText mNameEt;
+    private EditText mIntroEt;
 
 
     @Override
@@ -72,7 +89,7 @@ public class SpecialPostFragment extends Fragment {
         mToolbar = view.findViewById(R.id.tb_special_post);
         mPicIv = view.findViewById(R.id.iv_special_post);
         mPostBtn = view.findViewById(R.id.btn_special_post);
-        mNameEt = view.findViewById(R.id.et_name_special_post);
+        //mNameEt = view.findViewById(R.id.et_name_special_post);
         mIntroEt = view.findViewById(R.id.et_intro_special_post);
         mPicTv = view.findViewById(R.id.tv_special_post);
 
@@ -91,7 +108,7 @@ public class SpecialPostFragment extends Fragment {
 
         mPostBtn.setOnClickListener(v -> {
             if (checkNonNull())
-                postSpecial();
+                compressImage();
             else {
                 Objects.requireNonNull(getContext()).setTheme(R.style.QMUITheme);
                 QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
@@ -108,48 +125,66 @@ public class SpecialPostFragment extends Fragment {
         return view;
     }
 
-    private void postSpecial( ) {
-//        File file = FileUtils.getFile(getContext(), mPhotoUri);
-//        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-//
-//        NetUtil.getInstance().getApi().uploadImage(body)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnNext(stringResponse -> Log.e("SpecialPostFragment", "Image post Success"))
-//                .observeOn(Schedulers.io())
-//                .flatMap((Function<BaseResponseModel<String>, Observable<Response<Void>>>) stringBaseResponseModel -> {
-//                    String intro = mIntroEt.getText().toString();
-//                    String name = mNameEt.getText().toString();
-//                    String picture_url = stringBaseResponseModel.getData().get(0);
-//                    ///todo to modify
-//                    SpecialPostBean bean = new SpecialPostBean(intro, name, picture_url);
-//                    return NetUtil.getInstance().getApi().postSpecial(bean);
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Observer<Response<Void>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) { }
-//
-//                    @Override
-//                    public void onNext(Response<Void> voidResponse) {
-//                        if ( voidResponse.code() == 200 ) {
-//                            showSuccess();
-//                            onComplete();
-//                        } else
-//                            onError(new Throwable("Code is not 200"));
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                        Log.e("ActivityPostFragment", "post fail");
-//                        showError("上传失败");
-//                    }
-//
-//                    @Override
-//                    public void onComplete() { }
-//                });
+    private void compressImage( ) {
+        String filepath = ImageUtils.uriToPath(mPhotoUri, getContext(), getActivity().getContentResolver());
+        File originalImage = new File(filepath);
+        String targetDir = originalImage.getParentFile().getAbsolutePath();
+        ImageUtils.compressImage(getContext(), originalImage, targetDir, new OnCompressListener() {
+            @Override
+            public void onStart() {Log.e("SpecialPostFragment", "start compress image"); }
+
+            @Override
+            public void onSuccess(File file) {
+                postSpecial(file);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+                Log.e("SpecialPostFragment", "compress image fail");
+                showError("图片压缩失败");
+            }
+        });
+    }
+
+    private void postSpecial(File file) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+
+        NetUtil.getInstance().getApi().uploadImage(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(stringResponse -> Log.e("SpecialPostFragment", "Image post Success"))
+                .observeOn(Schedulers.io())
+                .flatMap((Function<UrlResponse, Observable<SimpleResponse>>) urlResponse -> {
+                    String intro = mIntroEt.getText().toString();
+                    //String name = mNameEt.getText().toString();
+                    String picture_url = urlResponse.getData().getUrl();
+                    SpecialPostBean bean = new SpecialPostBean(intro, picture_url);
+                    return NetUtil.getInstance().getApi().postMerSpecial(bean);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<SimpleResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) { }
+
+                    @Override
+                    public void onNext(SimpleResponse simpleResponse) {
+                        if ( !simpleResponse.getMessage().equals("OK") )
+                            onError(new Throwable());
+                        showSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Log.e("SpecialPostFragment", "post fail");
+                        showError("上传失败");
+                    }
+
+                    @Override
+                    public void onComplete() { }
+                });
     }
 
 
@@ -272,19 +307,17 @@ public class SpecialPostFragment extends Fragment {
     private boolean checkNonNull() {
         if ( mPhotoUri == null )
             return false;
-        if ( mNameEt.getText().toString().length() == 0 )
-            return false;
+        //if ( mNameEt.getText().toString().length() == 0 )
+          //  return false;
         if ( mIntroEt.getText().toString().length() == 0 )
             return false;
         return true;
     }
-
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Objects.requireNonNull(getContext()).setTheme(R.style.AppTheme);
     }
-
 
 }

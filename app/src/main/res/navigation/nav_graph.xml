@@ -20,6 +20,9 @@
             android:id="@+id/action_home_dest_to_activities"
             app:destination="@id/activities_dest" />
         <action
+            android:id="@+id/action_home_dest_to_merchant"
+            app:destination="@id/merchant_dest"/>
+        <action
             android:id="@+id/action_home_dest_to_realtime_dest"
             app:destination="@id/realtime_dest" />
     </fragment>
@@ -71,7 +74,7 @@
         android:id="@+id/realtime_dest"
         android:label="实时河湖"
         tools:layout="@layout/fragment_realtime">
-        
+
         <action
             android:id="@+id/action_realtime_dest_to_lakedetail_dest"
             app:destination="@id/lakedetail_dest" />
@@ -87,6 +90,24 @@
         android:label="activity_up_load_question"
         tools:layout="@layout/activity_up_load_question" />
 
+    <!--附近商家-->
+    <fragment
+        android:id="@+id/merchant_dest"
+        android:name="com.example.lakecircle.ui.home.merchant.MerchantListFragment"
+        tools:layout="@layout/fragment_merchant"
+        android:label="merchant">
+        <action
+            android:id="@+id/action_merchant_detail"
+            app:destination="@id/merchant_detail_dest"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/merchant_detail_dest"
+        android:name="com.example.lakecircle.ui.home.merchant.detail.MerchantDetailFragment"
+        tools:layout="@layout/fragment_merchant_detail"
+        android:label="merchant_detail"/>
+
+    <!--活动-->
     <fragment
         android:id="@+id/activities_dest"
         android:name="com.example.lakecircle.ui.home.activities.ActivitiesFragment"
@@ -102,6 +123,9 @@
         android:name="com.example.lakecircle.ui.home.activities.ActivitiesDetailFragment"
         android:label="activities_detail"
         tools:layout="@layout/fragment_activities_detail">
+        <argument
+            android:name="id"
+            app:argType="integer"/>
         <action
             android:id="@+id/action_activities_apply"
             app:destination="@id/activities_apply_dest" />
@@ -110,7 +134,11 @@
         android:id="@+id/activities_apply_dest"
         android:name="com.example.lakecircle.ui.home.activities.ActivitiesApplyFragment"
         android:label="activities_apply"
-        tools:layout="@layout/fragment_activities_apply" />
+        tools:layout="@layout/fragment_activities_apply" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
     <!--我的-->
     <fragment

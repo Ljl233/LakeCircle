@@ -194,7 +194,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:paddingVertical="5dp"
-            android:text="活动详情："
+            android:text="QQ号："
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold" />

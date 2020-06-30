@@ -153,6 +153,7 @@ public class HomeFragment extends Fragment {
                     String city = regeocodeResult.getRegeocodeAddress().getCity();
                     String s = "欢迎来到 " + city;
                     mTvWelcome.setText(s);
+                    mTvLocation.setText(city.substring(0, city.length() - 1));
                 }
             }
 
@@ -167,6 +168,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
+
         mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -176,7 +178,9 @@ public class HomeFragment extends Fragment {
         mSearchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "OnSearchClickListener", Toast.LENGTH_SHORT).show();
+                NavHostFragment.findNavController(HomeFragment.this).navigate(R.id.realtime_dest);
+
+//                Toast.makeText(getContext(), "OnSearchClickListener", Toast.LENGTH_SHORT).show();
             }
         });
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

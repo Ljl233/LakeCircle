@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.commonUtils.BaseResponseModel;
+import com.example.lakecircle.ui.home.light.LightFragment;
+import com.example.lakecircle.ui.home.light.model.UserInfoBean;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -45,9 +47,12 @@ public class UserRankFragment extends Fragment {
         return root;
     }
 
+
+
     private void initList() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 //        mRecyclerView.setAdapter(new UserListAdapter(UserRankBean.getDefaultBeans()));
+
         getUserList();
     }
 

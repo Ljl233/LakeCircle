@@ -6,6 +6,8 @@ import com.example.lakecircle.ui.home.activities.Activities;
 import com.example.lakecircle.ui.home.activities.ActivityApplyBean;
 import com.example.lakecircle.ui.home.activities.ActivityInfoResponse;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesResponse;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
 import com.example.lakecircle.ui.home.light.model.LakeUrlResponse;
@@ -62,6 +64,9 @@ public interface RetrofitApi {
     @GET("http://pinpin.muxixyz.com/api/v1/user/info")
     Observable<UserInfoBean> getUserInfo();
 
+    @POST("http://pinpin.muxixyz.com/api/v1/user/mileage")
+    Observable<MilesResponse> addMiles(@Body MilesBean milesBean);
+
     @POST("http://pinpin.muxixyz.com/api/v1/lake/star")
     Observable<StarResponse> starLake(@Body LakeNameBean lakeNameBean);
 
@@ -82,7 +87,7 @@ public interface RetrofitApi {
 
     //实时河湖搜索
     @GET("http://pinpin.muxixyz.com/api/v1/lake/intro")
-    Observable<BaseResponseModel<LakeIntroBean>> searchLakeIntro(@Query(value = "st",encoded = true) String lakename);
+    Observable<BaseResponseModel<LakeIntroBean>> searchLakeIntro(@Query(value = "st", encoded = true) String lakename);
 
     //上传问题
     @POST("http://pinpin.muxixyz.com/api/v1/question/new")

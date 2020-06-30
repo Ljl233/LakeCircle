@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_home_dest_to_realtime_dest"
             app:destination="@id/realtime_dest" />
+        <action
+            android:id="@+id/action_home_dest_to_journey_dest"
+            app:destination="@id/journey_dest" />
     </fragment>
 
     <!--河湖圈-->
@@ -58,6 +61,12 @@
         android:name="com.example.lakecircle.ui.home.journey.JourneyFragment"
         android:label="@string/journey">
 
+        <action
+            android:id="@+id/action_journey_dest_to_ulq_dest"
+            app:destination="@id/ulq_dest" />
+        <action
+            android:id="@+id/action_journey_dest_to_activities_dest"
+            app:destination="@id/activities_dest" />
     </fragment>
 
 
@@ -249,6 +258,11 @@
         android:name="com.example.lakecircle.ui.home.realtime.LakeDetailFragment"
         android:label="LakeDetailFragment"
         tools:layout="@layout/fragment_lakedetail"/>
+    <fragment
+        android:id="@+id/lighted_dest"
+        android:name="com.example.lakecircle.ui.home.light.LightedLakeFragment"
+        android:label="LightedLakeFragment"
+        tools:layout="@layout/fragment_lighted_lake"/>
 
 
 </navigation>

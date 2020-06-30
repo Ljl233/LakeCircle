@@ -8,6 +8,7 @@ import com.example.lakecircle.ui.home.activities.ActivityInfoResponse;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
 import com.example.lakecircle.ui.home.journey.lake.MilesBean;
 import com.example.lakecircle.ui.home.journey.lake.MilesResponse;
+import com.example.lakecircle.ui.home.light.model.LakeName2Bean;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
 import com.example.lakecircle.ui.home.light.model.LakeUrlResponse;
@@ -175,5 +176,8 @@ public interface RetrofitApi {
 
     @GET("http://pinpin.muxixyz.com/api/v1/business/info/{id}")
     Observable<MerchantInfoResponse> getMerchant(@Path("id")int id);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/lake/star/list")
+    Observable<BaseResponseModel<LakeName2Bean>> getStarLakes();
 
 }

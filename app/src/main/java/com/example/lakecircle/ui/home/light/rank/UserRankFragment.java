@@ -1,6 +1,7 @@
 package com.example.lakecircle.ui.home.light.rank;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import com.example.lakecircle.ui.home.light.model.UserInfoBean;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -46,7 +49,6 @@ public class UserRankFragment extends Fragment {
         initList();
         return root;
     }
-
 
 
     private void initList() {
@@ -95,7 +97,20 @@ public class UserRankFragment extends Fragment {
         }
 
         public void setUsers(List<UserRankBean> users) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                sortUserByStar(users);
+            }
             this.users = users;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        private void sortUserByStar(List<UserRankBean> users) {
+            users.sort(new Comparator<UserRankBean>() {
+                @Override
+                public int compare(UserRankBean o1, UserRankBean o2) {
+                    return o2.getStar_num() - o1.getStar_num();
+                }
+            });
         }
 
         @NonNull

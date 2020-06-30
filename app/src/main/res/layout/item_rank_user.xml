@@ -7,9 +7,9 @@
     android:paddingStart="10dp"
     android:paddingLeft="10dp"
     android:paddingTop="10dp"
+    android:paddingEnd="0dp"
     android:paddingRight="0dp"
-    android:paddingBottom="10dp"
-    android:paddingEnd="0dp">
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/item_rank_user_num"
@@ -34,7 +34,8 @@
         app:layout_constraintHorizontal_bias="0.215"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:placeholderImage="@drawable/lake_icon" />
+        app:placeholderImage="@drawable/lake_icon"
+        app:roundAsCircle="true" />
 
     <TextView
         android:id="@+id/item_rank_user_name"
@@ -68,8 +69,7 @@
         android:gravity="center"
         android:text="8"
         android:textColor="@color/orange"
-        android:textSize="48sp"
-        android:layout_marginEnd="10dp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"

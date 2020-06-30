@@ -106,10 +106,7 @@ public class ProblemListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        if ( problemList.size() == 0 )
-            return 1;
-        else
-            return problemList.size()+1;
+        return problemList.size()+1;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -128,8 +128,6 @@ public class PostCircleActivity extends AppCompatActivity {
                     @Override
                     public void onNext(SimpleResponse simpleResponse) {
                         showSuccess();
-                        setResult(1);
-                        finish();
                     }
 
                     @Override
@@ -286,6 +284,8 @@ public class PostCircleActivity extends AppCompatActivity {
         mPostBtn.postDelayed(() -> {
             Objects.requireNonNull(this).setTheme(R.style.AppTheme);
             tipDialog.dismiss();
+            setResult(1);
+            finish();
         }, 1500);
     }
 

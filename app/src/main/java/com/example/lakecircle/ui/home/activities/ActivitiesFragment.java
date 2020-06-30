@@ -1,5 +1,6 @@
 package com.example.lakecircle.ui.home.activities;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.Toolbar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -21,9 +24,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.ui.mine.govern.problemview.ProblemListFragment;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivitiesFragment extends Fragment {
@@ -35,7 +38,7 @@ public class ActivitiesFragment extends Fragment {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ArrayAdapter<String> mSpAdapter;
-    private List<String> mZoneList;
+    private List<String> mZoneList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -59,13 +62,7 @@ public class ActivitiesFragment extends Fragment {
         mSpAdapter.setDropDownViewResource(R.layout.spinner_activities_dropdown_item);
 
         mZoneSp.setBackgroundColor(0x0);
-        mZoneSp.setAdapter(mSpAdapter);
-        mZoneSp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+        mZoneSp.setAdapter(new SpinnerAdapter(getContext(), mZoneList));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mToolbar.setNavigationOnClickListener(v -> {
@@ -73,9 +70,7 @@ public class ActivitiesFragment extends Fragment {
             });
         }
 
-        mZoneIb.setOnClickListener(v -> {
-            mZoneSp.performClick();
-        });
+        mZoneIb.setOnClickListener(v -> mZoneSp.performClick());
 
         mViewPager.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager(),2));
         mTabLayout.setupWithViewPager(mViewPager);
@@ -83,7 +78,7 @@ public class ActivitiesFragment extends Fragment {
         return view;
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    public class MyAdapter extends FragmentPagerAdapter {
 
         private String[] mTitles = new String[]{"正在招募的活动", "已结束的活动"};
 
@@ -109,6 +104,42 @@ public class ActivitiesFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             return mTitles[position];
         }
+    }
+
+    public class SpinnerAdapter extends BaseAdapter {
+
+        private List<String> dataList;
+        private Context mContext;
+
+        public SpinnerAdapter(Context mContext, List<String> list) {
+            this.mContext = mContext;
+            dataList = list;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            TextView textView = view.findViewById(android.R.id.text1);
+            textView.setText(dataList.get(position));
+            return view;
+        }
+
+        @Override
+        public int getCount() {
+            return dataList == null ? 0 : dataList.size();
+        }
+
+        @Override
+        public String getItem(int position) {
+            return dataList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
     }
 
 }

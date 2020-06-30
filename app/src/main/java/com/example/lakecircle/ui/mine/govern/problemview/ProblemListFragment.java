@@ -10,14 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.NetUtil;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -104,9 +107,9 @@ public class ProblemListFragment extends Fragment{
 
                     @Override
                     public void onNext(ProblemListResponseBean problemListResponseBeanResponse) {
-                        List<ProblemListResponseBean.DataBean> t = problemListResponseBeanResponse.getData();
+                        List<ProblemListResponseBean.DataBean.Problem> t = problemListResponseBeanResponse.getData().getData();
                             List<Problem> problemList = new ArrayList<>();
-                            for (ProblemListResponseBean.DataBean data : t)
+                            for (ProblemListResponseBean.DataBean.Problem data : t)
                                 problemList.add(new Problem(data.getId(), data.isIs_solved(), data.getLocation(), data.getPicture_url()));
                             if (unsolvedPage == 1)
                                 mAdapter.refresh(problemList);
@@ -137,10 +140,9 @@ public class ProblemListFragment extends Fragment{
 
                     @Override
                     public void onNext(ProblemListResponseBean problemListResponseBeanResponse) {
-
-                            List<ProblemListResponseBean.DataBean> t = problemListResponseBeanResponse.getData();
+                            List<ProblemListResponseBean.DataBean.Problem> t = problemListResponseBeanResponse.getData().getData();
                             List<Problem> problemList = new ArrayList<>();
-                            for (ProblemListResponseBean.DataBean data : t)
+                            for (ProblemListResponseBean.DataBean.Problem data : t)
                                 problemList.add(new Problem(data.getId(), data.isIs_solved(), data.getLocation(), data.getPicture_url()));
                             if (solvedPage == 1)
                                 mAdapter.refresh(problemList);
@@ -154,10 +156,25 @@ public class ProblemListFragment extends Fragment{
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         Log.e("ProblemListFragment", "get solved problem "+solvedPage+"page list fail");
+                        showError("加载失败");
                     }
 
                     @Override
                     public void onComplete() { }
                 });
     }
+
+    private void showError(String error) {
+        Objects.requireNonNull(getContext()).setTheme(R.style.QMUITheme);
+        QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
+                .setTipWord(error)
+                .create();
+        tipDialog.show();
+        this.getView().postDelayed(() -> {
+            tipDialog.dismiss();
+            Objects.requireNonNull(getContext()).setTheme(R.style.AppTheme);
+        }, 1500);
+    }
+
 }

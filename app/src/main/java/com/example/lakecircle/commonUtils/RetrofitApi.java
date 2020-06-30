@@ -2,6 +2,9 @@ package com.example.lakecircle.commonUtils;
 
 import com.example.lakecircle.ui.circle.Circle;
 import com.example.lakecircle.ui.circle.PostCircleBean;
+import com.example.lakecircle.ui.home.activities.Activities;
+import com.example.lakecircle.ui.home.activities.ActivityApplyBean;
+import com.example.lakecircle.ui.home.activities.ActivityInfoResponse;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
@@ -9,6 +12,13 @@ import com.example.lakecircle.ui.home.light.model.LakeUrlResponse;
 import com.example.lakecircle.ui.home.light.model.StarResponse;
 import com.example.lakecircle.ui.home.light.model.UserInfoBean;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
+import com.example.lakecircle.ui.home.merchant.MerchantInfoResponse;
+import com.example.lakecircle.ui.home.merchant.MerchantListResponse;
+import com.example.lakecircle.ui.home.merchant.MerchantNameBean;
+import com.example.lakecircle.ui.home.merchant.detail.coupon.ExchangeCouponBean;
+import com.example.lakecircle.ui.home.merchant.detail.coupon.MerchantCouponListFragment;
+import com.example.lakecircle.ui.home.merchant.detail.special.MerchantSpecialListFragment;
+import com.example.lakecircle.ui.home.merchant.detail.special.SpecialListResponse;
 import com.example.lakecircle.ui.home.upimage.QuestionBean;
 import com.example.lakecircle.ui.home.upimage.QuestionResponse;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
@@ -125,5 +135,29 @@ public interface RetrofitApi {
 
     @POST("http://pinpin.muxixyz.com/api/v1/moment")
     Observable<SimpleResponse> postCircle(@Body PostCircleBean postCircleBean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/activity/unfinished")
+    Observable<BaseResponseModel<Activities>> getUnfinishedActivities(@Query("page") String page, @Query("limit") String limit);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/activity/finished")
+    Observable<BaseResponseModel<Activities>> getFinishedActivities(@Query("page") String page, @Query("limit") String limit);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/activity/info/{id}")
+    Observable<ActivityInfoResponse> getActivity(@Path("id") int id);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/activity/{id}")
+    Observable<SimpleResponse> applyActivity(@Path("id") int id, @Body ActivityApplyBean activityApplyBean);
+
+    @POST("http://pinpin.muxixyz.com/api/v1/coupon")
+    Observable<SimpleResponse> exchangeCoupon(@Body ExchangeCouponBean exchangeCouponBean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/business/specials/{id}")
+    Observable<BaseResponseModel<SpecialListResponse>> getSpecials(@Path("id") int id, @Query("page") String page, @Query("limit") String limit);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/business/list")
+    Observable<MerchantListResponse> getMerchants(@Query("page")String page, @Query("limit")String limit, @Body MerchantNameBean merchantNameBean);
+
+    @GET("http://pinpin.muxixyz.com/api/v1/business/info/{id}")
+    Observable<MerchantInfoResponse> getMerchant(@Path("id")int id);
 
 }

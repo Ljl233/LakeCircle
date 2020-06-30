@@ -11,13 +11,36 @@
     android:orientation="vertical"
     tools:context=".ui.home.upimage.ULQActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ulq_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:navigationIcon="@drawable/ic_nav_white_24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ulq"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/ulq_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_margin="10dp"
         android:background="@drawable/bg_stroke"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ulq_toolbar"
         tools:layout_editor_absoluteX="-16dp" />
 
     <TextView

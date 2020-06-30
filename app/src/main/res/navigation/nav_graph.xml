@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_home_dest_to_activities"
             app:destination="@id/activities_dest" />
+        <action
+            android:id="@+id/action_home_dest_to_realtime_dest"
+            app:destination="@id/realtime_dest" />
     </fragment>
 
     <fragment
@@ -49,7 +52,10 @@
         android:id="@+id/realtime_dest"
         android:label="实时河湖"
         tools:layout="@layout/fragment_realtime">
-
+        
+        <action
+            android:id="@+id/action_realtime_dest_to_lakedetail_dest"
+            app:destination="@id/lakedetail_dest" />
     </fragment>
     <fragment
         android:id="@+id/rank_dest"
@@ -193,6 +199,11 @@
         android:name="com.example.lakecircle.ui.mine.coupon.MyCouponFragment"
         android:label="我的优惠券"
         tools:layout="@layout/fragment_my_coupon"/>
+    <fragment
+        android:id="@+id/lakedetail_dest"
+        android:name="com.example.lakecircle.ui.home.realtime.LakeDetailFragment"
+        android:label="LakeDetailFragment"
+        tools:layout="@layout/fragment_lakedetail"/>
 
 
 </navigation>

@@ -11,8 +11,10 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -62,6 +64,11 @@ public class JourneyFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_journey, container, false);
+
+        Toolbar toolbar = root.findViewById(R.id.journey_toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
+            NavHostFragment.findNavController(this).popBackStack();
+        });
 
         mMapView = root.findViewById(R.id.journey_map);
         mMapView.onCreate(mSavedInstanceState);

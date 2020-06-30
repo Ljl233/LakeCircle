@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.Manifest;
 import android.content.ContentUris;
@@ -84,6 +86,11 @@ public class ULQActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_up_load_question);
 
+        Toolbar toolbar = findViewById(R.id.ulq_toolbar);
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
         parent = findViewById(R.id.ulq_content);
         mDraweeULQ = findViewById(R.id.ulq_image);
         mEditText = findViewById(R.id.ed_ulq);
@@ -101,7 +108,7 @@ public class ULQActivity extends AppCompatActivity {
         mDraweeULQ.setOnClickListener(v -> {
             showPopupWindow();
         });
-        test_edit = findViewById(R.id.test_edit);
+        test_edit = findViewById(R.id.ed_ulq);
     }
 
     private void showPopupWindow() {

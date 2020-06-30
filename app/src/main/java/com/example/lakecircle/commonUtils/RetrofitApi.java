@@ -7,6 +7,7 @@ import com.example.lakecircle.ui.home.light.model.LakeUrlResponse;
 import com.example.lakecircle.ui.home.light.model.StarResponse;
 import com.example.lakecircle.ui.home.light.model.UserInfoBean;
 import com.example.lakecircle.ui.home.light.model.UserRankBean;
+import com.example.lakecircle.ui.home.realtime.RealtimeResponse;
 import com.example.lakecircle.ui.home.upimage.QuestionBean;
 import com.example.lakecircle.ui.home.upimage.QuestionResponse;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
@@ -59,6 +60,14 @@ public interface RetrofitApi {
 
     @GET("http://pinpin.muxixyz.com/api/v1/rank/lake/")
     Observable<BaseResponseModel<LakeRankBean>> getLakeRank();
+
+    //实时河湖
+    @GET("http://pinpin.muxixyz.com/api/v1/lake/info/{id}")
+    Observable<RealtimeResponse> getLakeInfo(@Path("id") int lakeId);
+
+    //实时河湖搜索
+    @GET("http://pinpin.muxixyz.com/api/v1/lake/intro")
+    Observable<BaseResponseModel<LakeIntroBean>> searchLakeIntro(@Query(value = "st",encoded = true) String lakename);
 
     //上传问题
     @POST("http://pinpin.muxixyz.com/api/v1/question/new")

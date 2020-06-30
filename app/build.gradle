@@ -57,7 +57,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.amap.api:3dmap:7.0.0'
-//    implementation 'com.amap.api:location:4.9.0'
+    implementation 'com.amap.api:location:4.9.0'
     implementation 'com.amap.api:search:7.3.0'
 
     //图片压缩

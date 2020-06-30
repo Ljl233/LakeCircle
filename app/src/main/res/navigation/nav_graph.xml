@@ -125,7 +125,7 @@
         tools:layout="@layout/fragment_activities_detail">
         <argument
             android:name="id"
-            app:argType="int"/>
+            app:argType="integer"/>
         <action
             android:id="@+id/action_activities_apply"
             app:destination="@id/activities_apply_dest" />

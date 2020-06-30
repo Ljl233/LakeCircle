@@ -6,6 +6,8 @@ import com.example.lakecircle.ui.home.activities.Activities;
 import com.example.lakecircle.ui.home.activities.ActivityApplyBean;
 import com.example.lakecircle.ui.home.activities.ActivityInfoResponse;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesResponse;
 import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 import com.example.lakecircle.ui.home.light.model.LakeRankBean;
 import com.example.lakecircle.ui.home.light.model.LakeUrlResponse;
@@ -61,6 +63,9 @@ public interface RetrofitApi {
     @GET("http://pinpin.muxixyz.com/api/v1/user/info")
     Observable<UserInfoBean> getUserInfo();
 
+    @POST("http://pinpin.muxixyz.com/api/v1/user/mileage")
+    Observable<MilesResponse> addMiles(@Body MilesBean milesBean);
+
     @POST("http://pinpin.muxixyz.com/api/v1/lake/star")
     Observable<StarResponse> starLake(@Body LakeNameBean lakeNameBean);
 
@@ -81,7 +86,7 @@ public interface RetrofitApi {
 
     //实时河湖搜索
     @GET("http://pinpin.muxixyz.com/api/v1/lake/intro")
-    Observable<BaseResponseModel<LakeIntroBean>> searchLakeIntro(@Query(value = "st",encoded = true) String lakename);
+    Observable<BaseResponseModel<LakeIntroBean>> searchLakeIntro(@Query(value = "st", encoded = true) String lakename);
 
     //上传问题
     @POST("http://pinpin.muxixyz.com/api/v1/question/new")
@@ -164,9 +169,9 @@ public interface RetrofitApi {
     Observable<BaseResponseModel<SpecialListResponse>> getSpecials(@Path("id") int id, @Query("page") String page, @Query("limit") String limit);
 
     @GET("http://pinpin.muxixyz.com/api/v1/business/list")
-    Observable<MerchantListResponse> getMerchants(@Query("page")String page, @Query("limit")String limit, @Body MerchantNameBean merchantNameBean);
+    Observable<MerchantListResponse> getMerchants(@Query("page") String page, @Query("limit") String limit, @Body MerchantNameBean merchantNameBean);
 
     @GET("http://pinpin.muxixyz.com/api/v1/business/info/{id}")
-    Observable<MerchantInfoResponse> getMerchant(@Path("id")int id);
+    Observable<MerchantInfoResponse> getMerchant(@Path("id") int id);
 
 }

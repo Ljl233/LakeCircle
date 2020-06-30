@@ -40,6 +40,8 @@ import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.BaseResponseModel;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.home.journey.lake.LakeIntroBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesBean;
+import com.example.lakecircle.ui.home.journey.lake.MilesResponse;
 import com.example.lakecircle.ui.home.realtime.RealtimeResponse;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
@@ -90,9 +92,6 @@ public class JourneyFragment extends Fragment {
     private MapView mMapView;
     private AMap aMap;
     private Polyline polyline;
-//    private AMapLocationClient mLocationClient;
-//    private AMapLocationClientOption mLocationOption;
-//    private LocationSource.OnLocationChangedListener mListener;
     private Location privLocation;
 
     private String TAG = "Loglog:";
@@ -134,16 +133,14 @@ public class JourneyFragment extends Fragment {
 //                    } else {
                     startWalk();
                     Log.e("draw line", "========================================>start");
-                    Toast.makeText(JourneyFragment.this.getContext(), "开始", Toast.LENGTH_SHORT).show();
 //                    }
                 }
-                Toast.makeText(JourneyFragment.this.getContext(), "null", Toast.LENGTH_SHORT).show();
 
             } else {
                 btStart.setText("开始");
                 Log.e("draw line", "======================================>end");
-                Toast.makeText(JourneyFragment.this.getContext(), "结束", Toast.LENGTH_SHORT).show();
                 isStartWalk = false;
+                addMiles(totaldistance);
             }
         });
         return root;
@@ -390,6 +387,40 @@ public class JourneyFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private void addMiles(double miles) {
+
+        MilesBean milesBean = new MilesBean();
+        milesBean.setMileage((int) miles);
+        milesBean.setIntergral(((int) miles) * 10);
+        NetUtil.getInstance().getApi()
+                .addMiles(milesBean)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MilesResponse>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(MilesResponse milesResponse) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        Toast.makeText(JourneyFragment.this.getContext(), "上传失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
     @Override

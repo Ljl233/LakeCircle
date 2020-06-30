@@ -1,5 +1,7 @@
 package com.example.lakecircle.ui.home.journey.lake;
 
+import android.util.Log;
+
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 
@@ -18,7 +20,9 @@ public class LakeIntroBean {
 
     public LatLng getLatLng() {
         String[] strings = longitude_and_latitude.split(",");
-        LatLng latLng = new LatLng(Double.parseDouble(strings[1]), Double.parseDouble(strings[0]));
+        LatLng latLng = new LatLng(Double.valueOf(strings[1]), Double.parseDouble(strings[0]));
+        Log.e("longitude_and_latitude", "strings[0]:" + strings[0] + ",strings[1]" + strings[1]);
+        Log.e("longitude_and_latitude", "Dstrings[0]:" +latLng.latitude + ",Dstrings[1]" + latLng.longitude);
 
         return latLng;
     }

@@ -60,6 +60,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.amap.api.maps.model.MyLocationStyle.LOCATION_TYPE_LOCATE;
+import static com.amap.api.maps.model.MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE;
 
 /**
  * 河湖行
@@ -89,12 +90,12 @@ public class JourneyFragment extends Fragment {
     private MapView mMapView;
     private AMap aMap;
     private Polyline polyline;
-    private AMapLocationClient mLocationClient;
-    private AMapLocationClientOption mLocationOption;
-    private LocationSource.OnLocationChangedListener mListener;
-    private AMapLocation privLocation;
+//    private AMapLocationClient mLocationClient;
+//    private AMapLocationClientOption mLocationOption;
+//    private LocationSource.OnLocationChangedListener mListener;
+    private Location privLocation;
 
-    private String TAG = "JourneyFragment:";
+    private String TAG = "Loglog:";
     private Handler mHandler = new Handler();
     private String timeStr = "";
     private int timer = 0;
@@ -124,7 +125,27 @@ public class JourneyFragment extends Fragment {
         initMap();
 
         requestAllLakes();
-        initAmapLocation();
+        btStart.setOnClickListener(v -> {
+            if (!isStartWalk) {
+                isStartWalk = true;
+                if (nearestLake != null && mCurrentLatLng != null) {
+//                    if (nearestLake.getDistance(mCurrentLatLng) > 1) {
+//                        Toast.makeText(JourneyFragment.this.getContext(), "您附近没有河湖", Toast.LENGTH_SHORT).show();
+//                    } else {
+                    startWalk();
+                    Log.e("draw line", "========================================>start");
+                    Toast.makeText(JourneyFragment.this.getContext(), "开始", Toast.LENGTH_SHORT).show();
+//                    }
+                }
+                Toast.makeText(JourneyFragment.this.getContext(), "null", Toast.LENGTH_SHORT).show();
+
+            } else {
+                btStart.setText("开始");
+                Log.e("draw line", "======================================>end");
+                Toast.makeText(JourneyFragment.this.getContext(), "结束", Toast.LENGTH_SHORT).show();
+                isStartWalk = false;
+            }
+        });
         return root;
     }
 
@@ -161,21 +182,7 @@ public class JourneyFragment extends Fragment {
         tvIntergral = root.findViewById(R.id.walk_integral);
         tvWalktime = root.findViewById(R.id.walk_time);
 
-        btStart.setOnClickListener(v -> {
-            if (!isStartWalk) {
-                if (nearestLake != null && mCurrentLatLng != null) {
-                    if (nearestLake.getDistance(mCurrentLatLng) > 1) {
-                        Toast.makeText(JourneyFragment.this.getContext(), "您附近没有河湖", Toast.LENGTH_SHORT).show();
-                    } else {
-                        startWalk();
-                    }
-                }
-            } else {
-                btStart.setText("开始");
-                isStartWalk = false;
-            }
 
-        });
     }
 
     private void startWalk() {
@@ -184,6 +191,7 @@ public class JourneyFragment extends Fragment {
         tvWalktime.setText("00:00:00");
         tvMiles.setText("0");
         tvIntergral.setText("0");
+        aMap.clear();
         layoutWatch.setVisibility(View.VISIBLE);
         btStart.setText("结束");
         isStartWalk = true;
@@ -195,11 +203,15 @@ public class JourneyFragment extends Fragment {
                 .color(Color.YELLOW));
 
         aMap.getUiSettings().setZoomControlsEnabled(false);
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
         aMap.setMapTextZIndex(2);
+
+//        initAmapLocation();
 
         //开始计时
         countTimer();
+        totaldistance = 0;
+        timer = 0;
 
     }
 
@@ -208,14 +220,14 @@ public class JourneyFragment extends Fragment {
         @Override
         public void run() {
             if (isStartWalk) {
-                timer += 1000;
+                timer += 1;
                 String hh = new DecimalFormat("00").format(timer / 3600);
                 String mm = new DecimalFormat("00").format(timer % 3600 / 60);
                 String ss = new DecimalFormat("00").format(timer % 60);
                 String timeFormat = hh + ":" + mm + ":" + ss;
                 tvWalktime.setText(timeFormat);
+                countTimer();
             }
-            countTimer();
         }
     };
 
@@ -223,89 +235,53 @@ public class JourneyFragment extends Fragment {
         mHandler.postDelayed(TimerRunnable, 1000);
     }
 
+    private void initMap() {
+        if (aMap == null) aMap = mMapView.getMap();
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        myLocationStyle.interval(2000);
+        myLocationStyle.showMyLocation(true);
+        myLocationStyle.myLocationType(LOCATION_TYPE_LOCATION_ROTATE);
+        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);
+        aMap.setMyLocationEnabled(true);
 
-    /**
-     * 初始化定位
-     */
-    private void initAmapLocation() {
-        //初始化定位
-        mLocationClient = new AMapLocationClient(this.getContext());
-        //设置定位回调监听
-        mLocationClient.setLocationListener(mAMapLocationListener);
-        //初始化AMapLocationClientOption对象
-        mLocationOption = new AMapLocationClientOption();
-        // 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
-        mLocationOption.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.Transport);
-        //设置定位模式为AMapLocationMode.Hight_Accuracy，设备定位模式。
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        //设置定位间隔,单位毫秒,默认为2000ms，最低1000ms。
-        mLocationOption.setInterval(2000);
-        //设置是否返回地址信息（默认返回地址信息）
-        mLocationOption.setNeedAddress(true);
-        //单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒。
-        mLocationOption.setHttpTimeOut(20000);
-        if (null != mLocationClient) {
-            mLocationClient.setLocationOption(mLocationOption);
-            //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
-            mLocationClient.startLocation();
-        }
-    }
 
-    /**
-     * 定位回调每1秒调用一次
-     */
-    public AMapLocationListener mAMapLocationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation amapLocation) {
-            if (amapLocation != null) {
-                if (amapLocation.getErrorCode() == 0) {
-                    mListener.onLocationChanged(amapLocation);// 显示系统小蓝点,不写这一句无法显示到当前位置
-                    amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                    Log.e(TAG, "获取经纬度集合" + privLocation);//打Log记录点是否正确
+        aMap.getUiSettings().setZoomControlsEnabled(false);
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
-                    amapLocation.getAccuracy();//获取精度信息
-                    amapLocation.getBearing();//获取方向角信息
-                    amapLocation.getSpeed();//获取速度信息  单位：米/秒
-                    amapLocation.getLocationType();//查看是什么类型的点
-                    Log.e(TAG, "获取点的类型" + amapLocation.getLocationType());
-                    if (amapLocation.getLocationType() == 1) {
+        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                Toast.makeText(JourneyFragment.this.getContext(), mCurrentLatLng.toString(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "aMap.setOnMyLocationChangeListener" + mCurrentLatLng.toString());
 
-                        LatLng location = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
+                drawLines(location);//一边定位一边连线
+                totaldistance += tempdistance;
+                setMilesAndIntegral(totaldistance);
 
-                        drawLines(amapLocation);//一边定位一边连线
-                        totaldistance += tempdistance;
-                        Toast.makeText(JourneyFragment.this.getContext(), "经纬度" + totaldistance + "KM", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(JourneyFragment.this.getContext(), "经纬度" + totaldistance + "KM", Toast.LENGTH_SHORT).show();
 
-                        Log.e("DDDDDDDDD", String.valueOf(totaldistance));
+                Log.e("DDDDDDDDD", String.valueOf(totaldistance));
 
-                        Log.e(TAG, "获取点的类型" + amapLocation.getLocationType());
-                        Log.e("LLLLL", String.valueOf(location.latitude));
-                        Log.e("LLLLLLLL", String.valueOf(location.longitude));
-                    }
-                    //获取定位时间
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date date = new Date(amapLocation.getTime());
-                    sdf.format(date);
-                    privLocation = amapLocation;
-                } else {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + amapLocation.getErrorCode() + ", errInfo:" + amapLocation.getErrorInfo());
-                }
+                privLocation = location;
             }
-        }
-    };
+        });
+    }
 
     /**
      * 绘制运动路线
      *
      * @param curLocation
      */
-    public void drawLines(AMapLocation curLocation) {
+    public void drawLines(Location curLocation) {
 
+        if (!isStartWalk) return;
         if (null == privLocation) {
             return;
         }
+        Log.e("Lat", String.valueOf(curLocation.getLatitude()));
+        Log.e("Lng", String.valueOf(curLocation.getLongitude()));
         PolylineOptions options = new PolylineOptions();
         //上一个点的经纬度
         options.add(new LatLng(privLocation.getLatitude(), privLocation.getLongitude()));
@@ -320,23 +296,9 @@ public class JourneyFragment extends Fragment {
 
     }
 
-
-    private void initMap() {
-        if (aMap == null) aMap = mMapView.getMap();
-        MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(2000);
-        aMap.setMyLocationStyle(myLocationStyle);
-        aMap.setMyLocationEnabled(true);
-
-        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
-            @Override
-            public void onMyLocationChange(Location location) {
-                mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-            }
-        });
-    }
-
     private void setMilesAndIntegral(double totaldistance) {
+        //传进的参数的单位是米，需要千米
+        totaldistance = totaldistance / 1000.0;
         tvMiles.setText(String.valueOf((int) totaldistance));
         mile2integral((int) totaldistance);
     }
@@ -383,6 +345,7 @@ public class JourneyFragment extends Fragment {
     }
 
     private LakeIntroBean getNearestLake(List<LakeIntroBean> lakeIntroBeans, LatLng currentLatLng) {
+        if (nearestLake != null) return nearestLake;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             lakeIntroBeans.sort(new Comparator<LakeIntroBean>() {
                 @Override
@@ -391,6 +354,7 @@ public class JourneyFragment extends Fragment {
                 }
             });
         }
+        nearestLake = lakeIntroBeans.get(0);
         return lakeIntroBeans.get(0);
     }
 

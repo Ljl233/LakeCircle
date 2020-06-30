@@ -160,8 +160,7 @@ public class LightFragment extends Fragment {
                         setStarts(String.valueOf(
                                 userInfoBean.getData().getStar_num()
                         ));
-                        if (!userInfoBean.getData().getAvatar().equals(""))
-                            mImAvatar.setImageURI(userInfoBean.getData().getAvatar());
+                        mImAvatar.setImageURI(userInfoBean.getData().getAvatar());
                     }
 
                     @Override

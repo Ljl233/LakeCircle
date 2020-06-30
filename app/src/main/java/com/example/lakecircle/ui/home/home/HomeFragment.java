@@ -228,7 +228,6 @@ public class HomeFragment extends Fragment {
         });
 
         mTvTravel.setOnClickListener(v -> {
-
         });
 
         mIvActivity.setOnClickListener(v -> {
@@ -242,7 +241,13 @@ public class HomeFragment extends Fragment {
         });
 
         mIvMerchant.setOnClickListener(v -> {
-
+            NavOptions options = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.hide_out)
+                    .setPopEnterAnim(R.anim.show_in)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+            mNavController.navigate(R.id.merchant_dest, null, options);
         });
 
         mIvProblem.setOnClickListener(v -> {

@@ -20,8 +20,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.LatLonSharePoint;
+import com.amap.api.services.geocoder.GeocodeQuery;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeResult;
 import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.home.merchant.detail.MerchantDetailFragment;
@@ -34,17 +47,20 @@ import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class MerchantListFragment extends Fragment {
 
     private static int preState = 0;
-
+    private AMapLocationClient locationClient = null;
+    private LatLng mLocation = null;
     private List<Merchant> mMerchants = new ArrayList<>();
 
     private Toolbar mToolbar;
@@ -65,17 +81,38 @@ public class MerchantListFragment extends Fragment {
                     mNavController.navigate(R.id.action_merchant_detail,
                             MerchantDetailFragment.getBundle(merchant));
                 }
+                @Override
+                public void onMoreClick() { }
 
                 @Override
-                public void onMoreClick() {
-
-                }
-
-                @Override
-                public void onRefreshClick() {
-
-                }
+                public void onRefreshClick() { }
             };
+
+
+    /**
+     * 初始化定位
+     *
+     * @since 2.8.0
+     * @author hongming.wang
+     *
+     */
+    private void initLocation() {
+        //初始化client
+        locationClient = new AMapLocationClient(getContext().getApplicationContext());
+        //设置定位参数
+        locationClient.setLocationOption(new AMapLocationClientOption());
+        //设置定位监听
+        locationClient.setLocationListener(location -> {
+            if (null != location) {
+                //errCode等于0代表定位成功，其他的为定位失败，具体的可以参照官网定位错误码说明
+                if (location.getErrorCode() == 0)
+                    mLocation = new LatLng(location.getLongitude(), location.getLatitude());
+                else
+                    showError("定位失败");
+            } else
+                showError("定位失败");
+        });
+    }
 
     private OnClickListener mOnClickListener = new OnClickListener() {
         @Override
@@ -83,9 +120,11 @@ public class MerchantListFragment extends Fragment {
             if ( position != preState ) {
                 preState = position;
                 if (position == 0) {
-                    Collections.sort(mMerchants, new MerchantDistanceComparator());
+                    Collections.sort(mMerchants, new MerchantChangeNumComparator());
+                    mAdapter.refresh(mMerchants);
                 } else {
-                    /*mMerchants.sort(mMerchants, new MerchantChangeNumComparator());*/
+                    Collections.sort(mMerchants, new MerchantDistanceComparator(getContext(), mLocation));
+                    mAdapter.refresh(mMerchants);
                 }
             }
 
@@ -96,6 +135,7 @@ public class MerchantListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNavController = NavHostFragment.findNavController(this);
+        initLocation();
     }
 
     @Nullable
@@ -124,7 +164,8 @@ public class MerchantListFragment extends Fragment {
         mSortIb.setOnClickListener(v -> mSortSp.performClick());
 
         mAdapter = new MerchantAdapter(new ArrayList<>(), getContext(), mOnMerchantClickListener);
-
+        mRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRv.setAdapter(mAdapter);
 
         mSearchSv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -187,6 +228,8 @@ public class MerchantListFragment extends Fragment {
                         t.setTel(d.getTel());
                         t.setAddress(d.getAddress());
                         mMerchants.set(i,t);
+                        if ( i == mMerchants.size() -1 )
+                            mAdapter.refresh(mMerchants);
                     }
 
                     @Override
@@ -236,7 +279,7 @@ public class MerchantListFragment extends Fragment {
             View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
             TextView textView = view.findViewById(android.R.id.text1);
             textView.setText(dataList.get(position));
-            view.setOnClickListener(v -> {mOnClickListener.onClick(position);});
+            //view.setOnClickListener(v -> {mOnClickListener.onClick(position);});
             return view;
         }
 

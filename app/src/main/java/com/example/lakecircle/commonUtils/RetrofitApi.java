@@ -42,6 +42,7 @@ import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -163,7 +164,8 @@ public interface RetrofitApi {
     @GET("http://pinpin.muxixyz.com/api/v1/business/specials/{id}")
     Observable<BaseResponseModel<SpecialListResponse>> getSpecials(@Path("id") int id, @Query("page") String page, @Query("limit") String limit);
 
-    @GET("http://pinpin.muxixyz.com/api/v1/business/list")
+    //@GET("http://pinpin.muxixyz.com/api/v1/business/list")
+    @HTTP(method = "GET", path = "http://pinpin.muxixyz.com/api/v1/business/list", hasBody = true)
     Observable<MerchantListResponse> getMerchants(@Query("page")String page, @Query("limit")String limit, @Body MerchantNameBean merchantNameBean);
 
     @GET("http://pinpin.muxixyz.com/api/v1/business/info/{id}")

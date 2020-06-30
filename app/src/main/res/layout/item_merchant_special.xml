@@ -35,4 +35,4 @@
         app:layout_constraintStart_toEndOf="@+id/sdv_item_merchant_special"
         app:layout_constraintTop_toTopOf="parent" />
 
-</>
+</androidx.constraintlayout.widget.ConstraintLayout>

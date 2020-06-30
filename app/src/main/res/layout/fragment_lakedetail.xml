@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/realtime_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@drawable/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_nav_white_24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/lake_realtime"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/lakedetail_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:text="黄家湖"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/realtime_toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lakedetail_name">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/lakedetail_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:elevation="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderImage="@drawable/lake_picture_sample"
+            tools:layout_editor_absoluteX="42dp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="10dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lakedetail_image" />
+
+        <TextView
+            android:id="@+id/lakedetail_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:maxLines="2"
+            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view2"
+            app:layout_constraintTop_toTopOf="@+id/view2"
+            tools:text="位于。。。。。。。。。。。。。。。。。。。。。。。。。。" />
+
+        <ImageView
+            android:id="@+id/lakedetail_quality"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/lake_quality"
+            app:layout_constraintEnd_toStartOf="@+id/lakedetail_level"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <ImageView
+            android:id="@+id/lakedetail_level"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/water_level"
+            app:layout_constraintBottom_toBottomOf="@+id/lakedetail_quality"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lakedetail_quality" />
+
+        <ImageView
+            android:id="@+id/lakedetail_lakeowner"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/lake_owner"
+            app:layout_constraintBottom_toBottomOf="@+id/lakedetail_level"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lakedetail_level"
+            app:layout_constraintTop_toTopOf="@+id/lakedetail_level" />
+
+        <ImageView
+            android:id="@+id/lakedetail_ulq"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/proble_upload"
+            app:layout_constraintEnd_toStartOf="@+id/lakedetail_avtivities"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <ImageView
+            android:id="@+id/lakedetail_avtivities"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/activity_detail"
+            app:layout_constraintBottom_toBottomOf="@+id/lakedetail_ulq"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lakedetail_ulq" />
+
+        <ImageView
+            android:id="@+id/lakedetail_merchant"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/merchant"
+            app:layout_constraintBottom_toBottomOf="@+id/lakedetail_avtivities"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lakedetail_avtivities"
+            app:layout_constraintTop_toTopOf="@+id/lakedetail_ulq" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="水质情况"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_quality"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_quality"
+            app:layout_constraintTop_toBottomOf="@+id/lakedetail_quality" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当日水位"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_level"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_level"
+            app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="湖长信息"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_lakeowner"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_lakeowner"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="拍照上传"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_ulq"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_ulq"
+            app:layout_constraintTop_toBottomOf="@+id/lakedetail_ulq" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="近期活动"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_avtivities"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_avtivities"
+            app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="附近商家"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/lakedetail_merchant"
+            app:layout_constraintStart_toStartOf="@+id/lakedetail_merchant"
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

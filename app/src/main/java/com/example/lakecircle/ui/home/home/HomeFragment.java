@@ -34,6 +34,8 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.example.lakecircle.R;
 
+import static com.amap.api.maps.model.MyLocationStyle.LOCATION_TYPE_LOCATE;
+
 public class HomeFragment extends Fragment {
 
     private SearchView mSearchView;
@@ -62,7 +64,7 @@ public class HomeFragment extends Fragment {
                 mSearchView.clearFocus();
         });
         mSearchView = view.findViewById(R.id.searchView);
-        mTvLocation = view.findViewById(R.id.home_location);
+        mTvLocation = view.findViewById(R.id.realtime_location);
         mTvLakeWalk = view.findViewById(R.id.home_tv_lakewalk);
         mTvLightLake = view.findViewById(R.id.home_tv_lightlake);
         mTvTimeLake = view.findViewById(R.id.home_tv_timelake);
@@ -123,9 +125,10 @@ public class HomeFragment extends Fragment {
 
         //显示定位蓝点
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.interval(100000);
+        myLocationStyle.myLocationType(LOCATION_TYPE_LOCATE);//定位一次，且将视角移动到地图中心点。
+        myLocationStyle.interval(2000);
         aMap.setMyLocationStyle(myLocationStyle);
-//        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);
 
         GeocodeSearch geocodeSearch = new GeocodeSearch(this.getContext());

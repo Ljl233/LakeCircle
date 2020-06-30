@@ -197,8 +197,9 @@ public class LightFragment extends Fragment {
                         @Override
                         public void onNext(StarResponse starResponse) {
                             Toast.makeText(LightFragment.this.getContext(),
-                                    "onNext:" + starResponse.getMessage(),
+                                    "点亮成功",
                                     Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -211,7 +212,7 @@ public class LightFragment extends Fragment {
                             mIvStar.setImageResource(R.drawable.ic_star_24dp);
                             showLakePicture(staredLakeUrl);
                             isStared = true;
-
+                            mIvStar.setClickable(false);
                             getUserInfo();
                         }
                     });

@@ -66,7 +66,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -79,7 +79,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@android:color/black"
-                    android:textSize="24sp"
+                    android:textSize="12sp"
                     tools:text="沙湖" />
 
                 <View
@@ -103,8 +103,17 @@
                     tools:text="位于。。。。。。。。。。。。。。。。。。。。。。。。。。" />
 
             </LinearLayout>
+            <Button
+                android:id="@+id/walk_start"
+                android:layout_marginTop="10dp"
+                android:text="开始河湖行"
+                android:background="@drawable/bg_corners_grey"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/walk_watch"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
@@ -195,6 +204,7 @@
                     tools:text="2.1" />
 
                 <TextView
+                    android:id="@+id/walk_integral"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/holo_orange_light"

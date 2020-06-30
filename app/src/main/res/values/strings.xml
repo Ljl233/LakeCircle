@@ -102,5 +102,6 @@
     <string name="lake_realtime">实时河湖</string>
     <string name="merchant_coupon">%1$d元代金券</string>
     <string name="merchant_coupon_denomination">%1$d</string>
+    <string name="ulq">问题上传</string>
 
 </resources>

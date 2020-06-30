@@ -1,26 +1,39 @@
 package com.example.lakecircle.ui.home.journey.lake;
 
-import android.util.Log;
-
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 
 public class LakeIntroBean {
 
+
     /**
-     * name : 外沙湖（武汉）
-         * longitude_and_latitude : 114.334675,30.565848
+     * id : 0
+     * longitude_and_latitude : string
+     * name : string
      */
 
-    private String name;
+    private int id;
     private String longitude_and_latitude;
+    private String name;
 
-    public String getName() {
-        return name;
+    public LatLng getLatLng() {
+        String[] strings = longitude_and_latitude.split(",");
+        LatLng latLng = new LatLng(Double.parseDouble(strings[1]), Double.parseDouble(strings[0]));
+
+        return latLng;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public float getDistance(LatLng latLng) {
+        float distance = AMapUtils.calculateLineDistance(getLatLng(), latLng);
+        return distance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLongitude_and_latitude() {
@@ -31,15 +44,11 @@ public class LakeIntroBean {
         this.longitude_and_latitude = longitude_and_latitude;
     }
 
-    public LatLng getLatLng() {
-        String[] strings = longitude_and_latitude.split(",");
-        LatLng latLng = new LatLng(Double.parseDouble(strings[1]), Double.parseDouble(strings[0]));
-
-        return latLng;
+    public String getName() {
+        return name;
     }
 
-    public float getDistance(LatLng latLng) {
-        float distance = AMapUtils.calculateLineDistance(getLatLng(),latLng);
-        return distance;
+    public void setName(String name) {
+        this.name = name;
     }
 }

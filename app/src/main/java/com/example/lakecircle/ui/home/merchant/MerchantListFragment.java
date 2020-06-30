@@ -120,7 +120,7 @@ public class MerchantListFragment extends Fragment {
         mSpAdapter = new ArrayAdapter<>(getContext(),R.layout.spinner_activities_layout, mSortList);
         mSpAdapter.setDropDownViewResource(R.layout.spinner_activities_dropdown_item);
         mSortSp.setBackgroundColor(0x0);
-        mSortSp.setAdapter(new SpinnerAdapter(getContext(), mSortList));
+        mSortSp.setAdapter(new SpinnerAdapter(getContext(), mSortList,mOnClickListener));
         mSortIb.setOnClickListener(v -> mSortSp.performClick());
 
         mAdapter = new MerchantAdapter(new ArrayList<>(), getContext(), mOnMerchantClickListener);

@@ -7,7 +7,6 @@ import com.amap.api.maps.model.LatLng;
 
 public class LakeIntroBean {
 
-
     /**
      * id : 0
      * longitude_and_latitude : string

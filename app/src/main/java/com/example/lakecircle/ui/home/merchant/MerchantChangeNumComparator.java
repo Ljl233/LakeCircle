@@ -1,5 +1,7 @@
 package com.example.lakecircle.ui.home.merchant;
 
+import com.example.lakecircle.data.Merchant.Merchant;
+
 import java.util.Comparator;
 
 public class MerchantChangeNumComparator implements Comparator<Merchant> {

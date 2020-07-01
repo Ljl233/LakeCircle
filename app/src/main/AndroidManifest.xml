@@ -54,6 +54,10 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="117776182c44c16126953786bff8789b" />
+        <service
+            android:name="com.amap.api.location.APSService"
+            android:foregroundServiceType="location" />
+
 
         <activity
             android:name=".ui.home.upimage.ULQActivity"

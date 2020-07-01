@@ -1,6 +1,7 @@
 package com.example.lakecircle.ui.home.merchant;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amap.api.maps.model.LatLng;
 import com.example.lakecircle.R;
+import com.example.lakecircle.data.Merchant.Merchant;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MerchantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -21,47 +25,65 @@ public class MerchantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context mContext;
     private OnMerchantClickListener mOnMerchantClickListener;
 
-    public MerchantAdapter(List<Merchant> merchantList, Context context, OnMerchantClickListener onMerchantClickListener) {
-        merchants = merchantList;
-        mContext = context;
-        mOnMerchantClickListener = onMerchantClickListener;
+    private int sortMode = 1;  //0-按兑换次数， 1-按距离
+    private LatLng location = null;
+
+    public MerchantAdapter(List<Merchant> merchants, Context mContext,
+                           OnMerchantClickListener mOnMerchantClickListener, int sortMode,
+                           LatLng location) {
+        this.merchants = merchants;
+        this.mContext = mContext;
+        this.mOnMerchantClickListener = mOnMerchantClickListener;
+        this.sortMode = sortMode;
+        this.location = location;
+    }
+
+    public void setSortMode(int sortMode) {
+        if ( sortMode != this.sortMode )
+            sort();
+        this.sortMode = sortMode;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 
     public interface OnMerchantClickListener {
         void onItemClick(Merchant merchant);
-        void onMoreClick();
         void onRefreshClick();
     }
 
-    public void refresh(List<Merchant> merchantList) {
-        int preSize = merchants.size();
-        merchants.clear();
-        notifyItemRangeRemoved(0,preSize);
-        merchants.addAll(merchantList);
-        notifyItemRangeInserted(0, merchantList.size());
+    public void setData(List<Merchant> merchantList) {
+        Log.e("TAG", "set data");
+        merchants = merchantList;
+        sort();
     }
 
-    public void add(List<Merchant> merchantList) {
-        int preSize = merchants.size();
+    private void sort() {
+        if ( sortMode == 0)
+            Collections.sort(merchants, new MerchantChangeNumComparator());
+        else
+            Collections.sort(merchants, new MerchantDistanceComparator(location));
+        refresh();
+    }
 
-        merchants.addAll(merchantList);
-        notifyItemRangeInserted(preSize,preSize + merchantList.size());
+    public void refresh() {
+        Log.e("TAG", "refresh");
+        int size = merchants.size();
+        notifyItemRangeRemoved(0,size);
+        notifyItemRangeInserted(0, size);
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case 0:
-                return new MerchantViewHolder(LayoutInflater.from(mContext).inflate(
-                        R.layout.item_merchant_list, parent, false));
-            case 1:
-                return new NoneViewHolder(LayoutInflater.from(mContext).inflate(
-                        android.R.layout.simple_list_item_1, parent, false));
-            default:
-                return new MoreViewHolder(LayoutInflater.from(mContext).inflate(
-                        android.R.layout.simple_list_item_1, parent, false));
-        }
+        if (viewType == 0)
+            return new MerchantViewHolder(LayoutInflater.from(mContext).inflate(
+                    R.layout.item_merchant_list, parent, false));
+        else
+            return new NoneViewHolder(LayoutInflater.from(mContext).inflate(
+                    android.R.layout.simple_list_item_1, parent, false));
+
     }
 
     @Override
@@ -77,27 +99,20 @@ public class MerchantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mHolder.textView.setText("找不到商家,点击尝试刷新");
             mHolder.textView.setGravity(Gravity.CENTER);
             mHolder.textView.setOnClickListener(v -> mOnMerchantClickListener.onRefreshClick());
-        } else {
-            MoreViewHolder mHolder = (MoreViewHolder) holder;
-            mHolder.textView.setText("点击加载更多");
-            mHolder.textView.setGravity(Gravity.CENTER);
-            mHolder.textView.setOnClickListener(v -> mOnMerchantClickListener.onMoreClick());
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if ( merchants.size() == 0 )
-            return 1;
-        else if ( position == merchants.size() )
-            return 2;
-        else
-            return 0;
+        if ( merchants.size() == 0 ) return 1;
+        else return 0;
     }
 
     @Override
     public int getItemCount() {
-        return merchants.size() + 1;
+        if ( merchants.size() == 0 )
+            return 1;
+        return merchants.size();
     }
 
     class MerchantViewHolder extends RecyclerView.ViewHolder {
@@ -119,16 +134,6 @@ public class MerchantAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private TextView textView;
 
         public NoneViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
-        }
-    }
-
-    public class MoreViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView textView;
-
-        public MoreViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(android.R.id.text1);
         }

@@ -17,7 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.lakecircle.R;
-import com.example.lakecircle.ui.home.merchant.Merchant;
+import com.example.lakecircle.data.Merchant.Merchant;
 import com.example.lakecircle.ui.home.merchant.detail.coupon.MerchantCouponListFragment;
 import com.example.lakecircle.ui.home.merchant.detail.special.MerchantSpecialListFragment;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -25,7 +25,13 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MerchantDetailFragment extends Fragment {
 
-    private Merchant merchant = new Merchant();
+    private int id ;
+    private String name;
+    private String intro;
+    private String address;
+    private String url;
+    private String tel;
+
 
     private TextView mNameTv, mIntroTv, mAddressTv;
     private Toolbar mToolbar;
@@ -48,18 +54,12 @@ public class MerchantDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ( getArguments() != null ) {
-            int id = getArguments().getInt("id");
-            String name = getArguments().getString("name");
-            String intro = getArguments().getString("intro");
-            String address = getArguments().getString("address");
-            String url = getArguments().getString("url");
-            String tel = getArguments().getString("tel");
-            merchant.setId(id);
-            merchant.setAddress(address);
-            merchant.setAvatar_url(url);
-            merchant.setIntro(intro);
-            merchant.setTel(tel);
-            merchant.setName(name);
+            id = getArguments().getInt("id");
+            name = getArguments().getString("name");
+            intro = getArguments().getString("intro");
+            address = getArguments().getString("address");
+            url = getArguments().getString("url");
+            tel = getArguments().getString("tel");
         }
     }
 
@@ -84,10 +84,10 @@ public class MerchantDetailFragment extends Fragment {
         mVp.setAdapter(new MyAdapter(getActivity().getSupportFragmentManager(),2));
         mTl.setupWithViewPager(mVp);
 
-        mNameTv.setText(merchant.getName());
-        mIntroTv.setText(merchant.getIntro());
-        mAddressTv.setText(merchant.getAddress());
-        mPicSdv.setImageURI(merchant.getAvatar_url());
+        mNameTv.setText(name);
+        mIntroTv.setText(intro);
+        mAddressTv.setText(address);
+        mPicSdv.setImageURI(url);
 
         return view;
     }
@@ -104,9 +104,9 @@ public class MerchantDetailFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if ( position == 0 )
-                return MerchantCouponListFragment.getInstance(merchant.getId());
+                return MerchantCouponListFragment.getInstance(id);
             else
-                return MerchantSpecialListFragment.getInstance(merchant.getId());
+                return MerchantSpecialListFragment.getInstance(id);
         }
 
         @Override

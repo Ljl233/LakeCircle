@@ -71,6 +71,7 @@ public class MyCouponFragment extends Fragment {
 
         mAdapter = new CouponAdapter(new ArrayList<>(), mCouponItemListener);
         mRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRv.setAdapter(mAdapter);
 
         getData(true);
 
@@ -106,7 +107,7 @@ public class MyCouponFragment extends Fragment {
 
     private void getData(boolean ifRefresh) {
         if ( ifRefresh ) page = 1;
-        NetUtil.getInstance().getApi().getCoupons(page+"", "10")
+        NetUtil.getInstance().getApi().getCoupons(page+"", "50")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<BaseResponseModel<Coupon>>() {
@@ -188,7 +189,7 @@ public class MyCouponFragment extends Fragment {
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             if ( holder instanceof CouponViewHolder ) {
                 CouponViewHolder h = (CouponViewHolder) holder;
-                h.mDenominationTv.setText(coupons.get(position).getDenomination());
+                h.mDenominationTv.setText(coupons.get(position).getDenomination()+"");
                 h.mNameTv.setText(coupons.get(position).getName());
                 h.mUserBtn.setOnClickListener(v -> {
                     mCouponItemListener.onItemClickListener();
@@ -197,15 +198,15 @@ public class MyCouponFragment extends Fragment {
                 });
             } else if ( holder instanceof NoneViewHolder ) {
                 NoneViewHolder h = (NoneViewHolder) holder;
-                h.textView.setText("暂时没有这类问题,点击尝试刷新");
+                h.textView.setText("你还没有优惠券,点击尝试刷新");
                 h.textView.setGravity(Gravity.CENTER);
                 h.textView.setOnClickListener(v -> mCouponItemListener.onRefreshClickListener());
             } else {
                 MoreViewHolder h = (MoreViewHolder) holder;
 
-                h.textView.setText("点击加载更多");
-                h.textView.setGravity(Gravity.CENTER);
-                h.textView.setOnClickListener(v -> mCouponItemListener.onMoreClickListener());
+                //h.textView.setText("点击加载更多");
+                //h.textView.setGravity(Gravity.CENTER);
+                //h.textView.setOnClickListener(v -> mCouponItemListener.onMoreClickListener());
             }
         }
 

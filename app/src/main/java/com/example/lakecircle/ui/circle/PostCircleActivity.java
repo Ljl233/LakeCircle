@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -55,6 +56,9 @@ import okhttp3.RequestBody;
 import top.zibin.luban.OnCompressListener;
 
 public class PostCircleActivity extends AppCompatActivity {
+
+    private final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
+    private final int MY_PERMISSIONS_REQUEST_ALBUM = 1;
 
     private final int CAM_CODE = 0;
     private final int ALB_CODE = 1;
@@ -154,16 +158,13 @@ public class PostCircleActivity extends AppCompatActivity {
                     Objects.requireNonNull(this).setTheme(R.style.AppTheme);
                     switch (position) {
                         case 0:
-                            try {
-                                mPhotoFile = createImageFile();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
                             TakePicture();
                             break;
                         case 1:
                             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ALBUM);
                             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, ALB_CODE);
                             break;
@@ -175,6 +176,24 @@ public class PostCircleActivity extends AppCompatActivity {
         builder.addItem("拍摄");
         builder.addItem("从相册选择");
         builder.build().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    TakePicture();
+                break;
+            }
+            case MY_PERMISSIONS_REQUEST_ALBUM : {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, ALB_CODE);
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -257,8 +276,11 @@ public class PostCircleActivity extends AppCompatActivity {
     }
 
     private void TakePicture() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+        try {
+            mPhotoFile = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Uri uri = FileProvider.getUriForFile(this, "com.example.lakecircle.fileprovider", mPhotoFile);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);

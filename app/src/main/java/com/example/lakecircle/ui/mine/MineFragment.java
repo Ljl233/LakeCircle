@@ -31,6 +31,7 @@ import com.example.lakecircle.ui.home.light.model.UserInfoBean;
 import com.example.lakecircle.ui.home.upimage.UrlResponse;
 import com.example.lakecircle.ui.login.login.LoginActivity;
 import com.example.lakecircle.ui.login.login.model.UserWrapper;
+import com.example.lakecircle.ui.mine.coupon.MyCouponFragment;
 import com.facebook.common.util.UriUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -58,6 +59,9 @@ import static android.app.Activity.RESULT_OK;
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 public class MineFragment extends Fragment {
+
+    private final int MY_PERMISSIONS_REQUEST_CAMERA = 0;
+    private final int MY_PERMISSIONS_REQUEST_ALBUM = 1;
 
     private final int CAM_CODE = 0;
     private final int ALB_CODE = 1;
@@ -214,21 +218,36 @@ public class MineFragment extends Fragment {
         //相机
         camera.setOnClickListener(v -> {
             dialog.dismiss();//消失
-            try {
-                mPhotoFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
             TakePicture();
         });
         //相册
         album.setOnClickListener(v -> {
             dialog.dismiss();//消失
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_ALBUM);
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, ALB_CODE);
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    TakePicture();
+                break;
+            }
+            case MY_PERMISSIONS_REQUEST_ALBUM : {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, ALB_CODE);
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -327,8 +346,12 @@ public class MineFragment extends Fragment {
     }
 
     private void TakePicture() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 1);
+        try {
+            mPhotoFile = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TakePicture();
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         Uri uri = FileProvider.getUriForFile(getActivity(), "com.example.lakecircle.fileprovider", mPhotoFile);
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);

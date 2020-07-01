@@ -35,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RankFragment extends Fragment {
 
-    private TextView mTvUsername, mTvRanking, mTvStarts;
+    private TextView mTvUsername, mTvRanking, mTvStarts, mTvMyLakes;
     private TabLayout mTabs;
     private ViewPager mViewPager;
     private SimpleDraweeView mIvAvatar;
@@ -54,6 +54,11 @@ public class RankFragment extends Fragment {
         Toolbar toolbar = root.findViewById(R.id.rank_toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             NavHostFragment.findNavController(this).popBackStack();
+        });
+
+        mTvMyLakes = root.findViewById(R.id.textView13);
+        mTvMyLakes.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.lighted_dest);
         });
         initTabsAndViewPager();
         initView();

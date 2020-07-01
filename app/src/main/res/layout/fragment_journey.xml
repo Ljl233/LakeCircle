@@ -27,11 +27,37 @@
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
 
-        <com.amap.api.maps.MapView
-            android:id="@+id/journey_map"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1">
+
+            <com.amap.api.maps.MapView
+                android:id="@+id/journey_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/journey_flag"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/activity_flag"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="@id/journey_map"
+                app:layout_constraintTop_toTopOf="@id/journey_map" />
+
+            <ImageView
+                android:id="@+id/journey_camera"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/camera"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/journey_flag"
+                app:layout_constraintTop_toBottomOf="@id/journey_flag" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <ImageView
             android:id="@+id/walk_button_up"
@@ -103,14 +129,15 @@
                     tools:text="位于。。。。。。。。。。。。。。。。。。。。。。。。。。" />
 
             </LinearLayout>
+
             <Button
                 android:id="@+id/walk_start"
-                android:layout_marginTop="10dp"
-                android:text="开始河湖行"
-                android:background="@drawable/bg_corners_grey"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_corners_grey"
+                android:text="开始河湖行" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/walk_watch"

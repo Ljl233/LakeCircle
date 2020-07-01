@@ -78,6 +78,7 @@ public class JourneyFragment extends Fragment {
     private Button btStart;
     private ConstraintLayout layoutWatch;
     private TextView tvLakename, tvDescription, tvWalktime, tvMiles, tvIntergral;
+    private ImageView ivCamera, ivFlag;
 
     private List<LatLng> mLatLngs;
     private ArrayList<MarkerOptions> markerOptions;
@@ -113,6 +114,14 @@ public class JourneyFragment extends Fragment {
         Toolbar toolbar = root.findViewById(R.id.journey_toolbar);
         toolbar.setNavigationOnClickListener(v -> {
             NavHostFragment.findNavController(this).popBackStack();
+        });
+        ivCamera = root.findViewById(R.id.journey_camera);
+        ivCamera.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.ulq_dest);
+        });
+        ivFlag = root.findViewById(R.id.journey_flag);
+        ivFlag.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.activities_dest);
         });
 
 

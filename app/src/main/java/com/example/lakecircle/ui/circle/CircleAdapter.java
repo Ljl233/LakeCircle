@@ -127,7 +127,6 @@ public class CircleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public CircleViewHolder(@NonNull View itemView) {
             super(itemView);
-            mAvatar = itemView.findViewById(R.id.avatar_circle_item);
             //mNameTv = itemView.findViewById(R.id.tv_name_circle_item);
             mTimeTv = itemView.findViewById(R.id.tv_time_circle_item);
             mContentTv = itemView.findViewById(R.id.tv_content_circle_item);

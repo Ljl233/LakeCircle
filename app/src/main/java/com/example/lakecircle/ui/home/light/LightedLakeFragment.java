@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.collection.ArraySet;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,9 +21,12 @@ import com.example.lakecircle.R;
 import com.example.lakecircle.commonUtils.BaseResponseModel;
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.home.light.model.LakeName2Bean;
-import com.example.lakecircle.ui.home.light.model.LakeNameBean;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -78,11 +82,20 @@ public class LightedLakeFragment extends Fragment {
                 });
     }
 
+    private List<LakeName2Bean> removeRepeated(List<LakeName2Bean> names) {
+        List<LakeName2Bean> set = new ArrayList<>();
+        for (LakeName2Bean name : names) {
+            if (!set.contains(name))
+                set.add(name);
+        }
+        return new ArrayList<>(set);
+    }
+
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.VH> {
         List<LakeName2Bean> names;
 
         MyAdapter(List<LakeName2Bean> names) {
-            this.names = names;
+            this.names = removeRepeated(names);
         }
 
         @NonNull

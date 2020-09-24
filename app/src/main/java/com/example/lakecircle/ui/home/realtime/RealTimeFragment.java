@@ -1,7 +1,9 @@
 package com.example.lakecircle.ui.home.realtime;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -158,7 +160,7 @@ public class RealTimeFragment extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        Objects.requireNonNull(getActivity()).getCurrentFocus().clearFocus();
+                        requireActivity().getCurrentFocus().clearFocus();
                         mSearchView.clearFocus();
                     }
                 });
@@ -212,8 +214,8 @@ public class RealTimeFragment extends Fragment {
     private void initMap() {
         if (aMap == null) aMap = mMapView.getMap();
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(), R.drawable.mylocation_maker)));
+        Bitmap myLocationMaker = BitmapFactory.decodeResource(getResources(), R.drawable.mylocation_maker);
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(changeBitmapSize(myLocationMaker,60,60)));
         myLocationStyle.interval(100000);
         aMap.setMyLocationStyle(myLocationStyle);
         aMap.setMyLocationEnabled(true);
@@ -254,13 +256,25 @@ public class RealTimeFragment extends Fragment {
             MarkerOptions markerOptions = new MarkerOptions().position(intro.getLatLng())
                     .snippet("DefaultMarker");
 
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                    .decodeResource(getResources(), R.drawable.location_maker)));
+            Bitmap locationMaker = BitmapFactory.decodeResource(getResources(), R.drawable.location_maker);
 
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(changeBitmapSize(locationMaker,50,60)));
             Marker marker = aMap.addMarker(markerOptions);
         }
     }
 
+    private Bitmap changeBitmapSize(Bitmap originImage, int newWidth, int newHeight) {
+        int width = originImage.getWidth();
+        int height = originImage.getHeight();
+
+        float scaleWidth = newWidth / (float) width;
+        float scaleHeight = newHeight / (float) height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleWidth);
+
+        return Bitmap.createBitmap(originImage, 0, 0, width, height, matrix, true);
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {

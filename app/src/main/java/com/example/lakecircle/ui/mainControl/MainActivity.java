@@ -121,9 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserInfoBean userInfoBean) {
-                        spUtils.put("avatar", userInfoBean.getData().getAvatar());
-                        spUtils.put("kind", userInfoBean.getData().getKind());
-                        spUtils.put("username", userInfoBean.getData().getUsername());
+                        if( userInfoBean != null ) {
+                            spUtils.put("avatar", userInfoBean.getData().getAvatar());
+                            spUtils.put("kind", userInfoBean.getData().getKind());
+                            spUtils.put("username", userInfoBean.getData().getUsername());
+                        }
                     }
 
                     @Override

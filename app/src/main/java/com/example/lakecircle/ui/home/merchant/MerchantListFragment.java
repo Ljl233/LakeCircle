@@ -143,7 +143,7 @@ public class MerchantListFragment extends Fragment {
 
     private void initLocation() {
         //初始化client
-        Toast.makeText(getContext(), "initLocation", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getContext(), "initLocation", Toast.LENGTH_LONG).show();
         locationClient = new AMapLocationClient(MyApp.getAppContext());
 
         AMapLocationClientOption mOption = new AMapLocationClientOption();
@@ -182,7 +182,7 @@ public class MerchantListFragment extends Fragment {
     }
 
     public void showError(String error) {
-        Objects.requireNonNull(getContext()).setTheme(R.style.QMUITheme);
+        requireContext().setTheme(R.style.QMUITheme);
         QMUITipDialog tipDialog = new QMUITipDialog.Builder(getContext())
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
                 .setTipWord(error)
@@ -190,7 +190,7 @@ public class MerchantListFragment extends Fragment {
         tipDialog.show();
         this.getView().postDelayed(() -> {
             tipDialog.dismiss();
-            Objects.requireNonNull(getContext()).setTheme(R.style.AppTheme);
+            requireContext().setTheme(R.style.AppTheme);
         }, 1500);
     }
 

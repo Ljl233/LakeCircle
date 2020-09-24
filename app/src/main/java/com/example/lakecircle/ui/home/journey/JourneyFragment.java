@@ -251,7 +251,6 @@ public class JourneyFragment extends Fragment {
         aMap.getUiSettings().setMyLocationButtonEnabled(true);
         aMap.setMyLocationEnabled(true);
 
-
         aMap.getUiSettings().setZoomControlsEnabled(false);
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -259,16 +258,10 @@ public class JourneyFragment extends Fragment {
             @Override
             public void onMyLocationChange(Location location) {
                 mCurrentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-//                Toast.makeText(JourneyFragment.this.getContext(), mCurrentLatLng.toString(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "aMap.setOnMyLocationChangeListener" + mCurrentLatLng.toString());
 
                 drawLines(location);//一边定位一边连线
                 totaldistance += tempdistance;
                 setMilesAndIntegral(totaldistance);
-
-//                Toast.makeText(JourneyFragment.this.getContext(), "经纬度" + totaldistance + "KM", Toast.LENGTH_SHORT).show();
-
-                Log.e("DDDDDDDDD", String.valueOf(totaldistance));
 
                 privLocation = location;
             }
@@ -286,8 +279,6 @@ public class JourneyFragment extends Fragment {
         if (null == privLocation) {
             return;
         }
-        Log.e("Lat", String.valueOf(curLocation.getLatitude()));
-        Log.e("Lng", String.valueOf(curLocation.getLongitude()));
         PolylineOptions options = new PolylineOptions();
         //上一个点的经纬度
         options.add(new LatLng(privLocation.getLatitude(), privLocation.getLongitude()));
@@ -369,7 +360,6 @@ public class JourneyFragment extends Fragment {
         if (lakeInfoMap.get(id) != null) {
             tvDescription.setText(lakeInfoMap.get(id).getIntroduction());
         } else {
-
             NetUtil.getInstance().getApi().getLakeInfo(id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

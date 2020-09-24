@@ -107,8 +107,9 @@ public class LogupActivity extends AppCompatActivity implements LogupContract.Vi
     }
 
     @Override
-    public void showError() {
-        Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
+    public void showError(Throwable error) {
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+        error.printStackTrace();
     }
 
 }

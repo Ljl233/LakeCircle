@@ -2,6 +2,7 @@ package com.example.lakecircle.ui.login.logup;
 
 import com.example.lakecircle.commonUtils.NetUtil;
 import com.example.lakecircle.ui.login.logup.model.LogupRequireBody;
+import com.example.lakecircle.ui.login.logup.model.LogupResponse;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,20 +31,20 @@ public class LogupPresenter implements LogupContract.Presenter {
             NetUtil.getInstance().getApi().logup(body)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<String>() {
+                    .subscribe(new Observer<LogupResponse>() {
                         @Override
                         public void onSubscribe(Disposable d) {
 
                         }
 
                         @Override
-                        public void onNext(String s) {
+                        public void onNext(LogupResponse s) {
                             mView.backToLogin();
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            mView.showError();
+                            mView.showError(e);
                         }
 
                         @Override

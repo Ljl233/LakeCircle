@@ -19,7 +19,7 @@ public interface LogupContract {
 
         void backToLogin();
 
-        void showError();
+        void showError(Throwable e);
     }
 
     interface Presenter {

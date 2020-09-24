@@ -27,6 +27,7 @@ import com.example.lakecircle.ui.home.upimage.UrlResponse;
 import com.example.lakecircle.ui.login.login.model.LoginResponse;
 import com.example.lakecircle.ui.login.login.model.UserBean;
 import com.example.lakecircle.ui.login.logup.model.LogupRequireBody;
+import com.example.lakecircle.ui.login.logup.model.LogupResponse;
 import com.example.lakecircle.ui.mine.MineFragment;
 import com.example.lakecircle.ui.mine.SimpleResponse;
 import com.example.lakecircle.ui.mine.certificate.GovCerPostBean;
@@ -55,7 +56,7 @@ public interface RetrofitApi {
     Observable<LoginResponse> login(@Body UserBean user);
 
     @POST("http://pinpin.muxixyz.com/api/v1/register")
-    Observable<String> logup(@Body LogupRequireBody body);
+    Observable<LogupResponse> logup(@Body LogupRequireBody body);
 
 
     //点亮河湖
